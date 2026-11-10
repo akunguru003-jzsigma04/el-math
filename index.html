@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>El Math</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#0F5132;--g2:#198754;--gold:#D4AF37;--bg:#fff7e2;--card:#ffffff;--tx:#1d2b24;--mut:#5b6b63;--bl:#e8f5ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0d1f17;--card:#16302a;--tx:#f2f0e4;--mut:#a9c0b4;--bl:#1d3d33;color-scheme:dark}}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:16px/1.5 "Baloo 2",system-ui,sans-serif;overflow-x:hidden}
+.scr{display:none;min-height:100%;padding:16px;max-width:900px;margin:0 auto}.scr.on{display:block}
+h1,h2,h3{margin:.2em 0;font-weight:800}
+.btn{border:0;border-radius:14px;padding:12px 20px;font:800 16px "Baloo 2",sans-serif;background:var(--g);color:#fff;cursor:pointer;margin:4px}
+.btn.gold{background:var(--gold);color:#2b2200}.btn.ghost{background:var(--bl);color:var(--g2)}.btn:disabled{opacity:.5}
+.btn:focus-visible,input:focus-visible{outline:3px solid var(--gold)}
+.card{background:var(--card);border-radius:18px;padding:14px;margin:10px 0;box-shadow:0 2px 10px #0002}
+.ctr{text-align:center}
+#splash{background:linear-gradient(160deg,var(--g),#0a3622);color:#fff;display:none;align-items:center;justify-content:center;flex-direction:column;max-width:none}
+#splash.on{display:flex}
+#splash .big{font-size:80px;animation:pop 1.2s ease-in-out infinite alternate}
+@keyframes pop{to{transform:scale(1.15) rotate(-6deg)}}
+#cover{background:linear-gradient(170deg,var(--g),#0a3622);color:#fff;max-width:none}
+#cover .in{max-width:700px;margin:auto;text-align:center}
+.badge{display:inline-block;background:var(--gold);color:#2b2200;border-radius:99px;padding:2px 14px;font-weight:800}
+.wave{animation:wv 4s linear infinite}@keyframes wv{to{transform:translateX(-60px)}}
+.float{animation:fl 3s ease-in-out infinite alternate}@keyframes fl{to{transform:translateY(-10px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important}}
+.modal{position:fixed;inset:0;background:#0008;backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal.on{display:flex}
+.modal .box{background:var(--card);color:var(--tx);border-radius:22px;padding:20px;max-width:520px;width:100%;max-height:90vh;overflow:auto;border:2px solid var(--gold)}
+.ar{font:700 28px/2 Amiri,serif;direction:rtl;text-align:center;color:var(--g2)}
+.av{width:110px;height:110px;border-radius:50%;border:4px solid var(--gold);background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-size:40px;margin:auto;overflow:hidden}.av img{width:100%;height:100%;object-fit:cover}
+input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font:600 16px "Baloo 2",sans-serif;background:var(--card);color:var(--tx)}
+.err{color:#c0392b;font-weight:700;min-height:1.4em}
+.bar{height:12px;background:var(--bl);border-radius:9px;overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--g2),var(--gold));transition:width .4s}
+.hdr{background:linear-gradient(90deg,var(--g),var(--g2));color:#fff;border-radius:18px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);display:none;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 10px #0003;z-index:20}
+.nav.on{display:flex}.nav button{background:none;border:0;font:700 12px "Baloo 2";color:var(--mut);padding:4px 14px}.nav button.a{color:var(--g2)}.nav span{display:block;font-size:22px}
+.tabs{padding-bottom:90px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.stats div{background:var(--bl);border-radius:14px;text-align:center;padding:8px 2px;font-weight:800}.stats small{display:block;color:var(--mut);font-weight:600}
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:12px;text-align:center}.days div{background:var(--bl);border-radius:10px;padding:6px 0}.days .t{outline:2px solid var(--gold)}.days .d{opacity:.5}
+.isl{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:18px;padding:12px;margin:10px 0;box-shadow:0 2px 8px #0002;cursor:pointer;width:86%}
+.isl:nth-child(even){margin-left:auto}.isl.lk{opacity:.5;filter:grayscale(1);cursor:not-allowed}
+.isl .e{font-size:34px;background:var(--bl);border-radius:50%;width:56px;height:56px;display:flex;align-items:center;justify-content:center;flex:none}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opt{background:var(--card);border:2px solid var(--g2);border-radius:14px;padding:14px;font:800 20px "Baloo 2";color:var(--tx);cursor:pointer}
+.opt.ok{background:#2e9e5b;color:#fff}.opt.no{background:#c0392b;color:#fff}
+.q{font-size:19px;font-weight:600}
+.track{position:relative;height:46px;background:var(--bl);border-radius:23px;margin:10px 0}.track b{position:absolute;top:2px;font-size:30px;transition:left .3s;transform:translateX(-50%)}
+.chip{display:inline-block;margin:5px;padding:12px 18px;background:var(--gold);color:#2b2200;border-radius:14px;font:800 22px "Baloo 2";border:0;cursor:pointer}.chip.used{opacity:.3}
+.shake{animation:sk .3s}@keyframes sk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+#rep{display:none}
+@media print{body>*:not(#rep){display:none!important}#rep{display:block;padding:20px;color:#000;background:#fff}#rep table{width:100%;border-collapse:collapse}#rep td,#rep th{border:1px solid #000;padding:6px}}
+@media(min-width:700px){.opts{grid-template-columns:repeat(4,1fr)}}
+</style></head><body>
+
+<section id="splash" class="scr on"><div class="big">🧮</div><h1>El Math</h1><p>Belajar Matematika dengan Gembira…</p></section>
+
+<section id="cover" class="scr"><div class="in">
+<span class="badge">Matematika · Kelas 1–6 · Fase A, B, C · MI</span>
+<h1 style="font-size:56px;color:var(--gold)">El Math</h1>
+<svg viewBox="0 0 400 220" width="100%" style="max-width:420px" aria-label="Perahu layar di Teluk Tomini dengan angka">
+<circle cx="320" cy="50" r="28" fill="#D4AF37" class="float"/>
+<g class="float"><rect x="150" y="30" width="46" height="46" rx="10" fill="#fff"/><text x="173" y="64" font-size="32" text-anchor="middle" fill="#0F5132" font-weight="800">+</text>
+<rect x="205" y="50" width="46" height="46" rx="10" fill="#D4AF37"/><text x="228" y="84" font-size="32" text-anchor="middle" fill="#2b2200" font-weight="800">7</text>
+<rect x="95" y="55" width="46" height="46" rx="10" fill="#fff"/><text x="118" y="89" font-size="32" text-anchor="middle" fill="#0F5132" font-weight="800">3</text></g>
+<path d="M200 110v60M200 112l50 45h-50z" fill="#fff"/><path d="M200 120l-40 38h40z" fill="#D4AF37"/><path d="M150 170h100l-15 22h-70z" fill="#8a5a2b"/>
+<g class="wave"><path d="M-60 195q30-14 60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0t60 0v30h-540z" fill="#1c9d6b" opacity=".85"/></g></svg>
+<p>Berlayar menaklukkan pelabuhan Nusantara bersama si Kancil 🐐</p>
+<button class="btn ghost" onclick="op('mDev')">Informasi Pengembang</button>
+<button class="btn ghost" onclick="op('mTuj')">Tujuan Pembelajaran</button><br>
+<button class="btn gold" style="font-size:22px;padding:14px 50px" onclick="go('form')">MULAI</button>
+</div></section>
+
+<div class="modal" id="mDev"><div class="box ctr">
+<div class="av"><img src="https://placehold.co/150x150/0F5132/D4AF37?text=Foto+Guru" alt="Foto pengembang" onerror="this.parentNode.textContent='JZ'"></div>
+<h2>Jefri Is Zakaria</h2><p>MAN 1 Boalemo<br>jefri_1986@madrasah.kemenag.go.id</p>
+<button class="btn" onclick="cl('mDev')">Kembali ke Cover</button></div></div>
+
+<div class="modal" id="mTuj"><div class="box">
+<h2 class="ctr">Tujuan Pembelajaran</h2>
+<p>Peserta didik mampu memahami konsep matematika dengan latihan setiap hari dengan gembira.</p>
+<div class="ar">وَقَدَّرَهُ مَنَازِلَ لِتَعْلَمُوا عَدَدَ السِّنِينَ وَالْحِسَابَ</div>
+<p class="ctr"><i>QS. Yunus [10]: 5, terjemah Kemenag RI: “…agar kamu mengetahui bilangan tahun dan perhitungan (waktu).”</i></p>
+<p>Tadabbur: Allah menata alam dengan hitungan yang teratur, jadi belajar berhitung adalah cara mengenal kebesaran-Nya.</p>
+<p>💚 Kurikulum Berbasis Cinta: cinta Allah dan Rasul, cinta sesama, cinta alam, dan cinta tanah air.</p><p>🧠 Soal memadukan Pembelajaran Mendalam (bermakna, berkesadaran, menggembirakan) dengan Cambridge Primary Mathematics (menalar, mengkritisi jawaban, memperkirakan).</p>
+<div class="ctr"><button class="btn" onclick="cl('mTuj')">Kembali ke Cover</button></div></div></div>
+
+<section id="form" class="scr"><div class="card ctr" style="max-width:480px;margin:40px auto">
+<h2>Kenalan dulu, yuk!</h2>
+<p style="text-align:left">Nama lengkap<input id="fn" autocomplete="name"></p>
+<p style="text-align:left">Kelas<input id="fk" placeholder="contoh: 3A"></p>
+<div class="err" id="fe"></div><button class="btn" onclick="sub()">Lanjut</button></div></section>
+
+<section id="intro" class="scr"><div class="card ctr" style="max-width:560px;margin:30px auto">
+<h2 id="iw"></h2><div id="sl" style="min-height:210px"></div>
+<div id="dots"></div>
+<button class="btn ghost" id="pv" onclick="sli(-1)">Kembali</button><button class="btn" id="nx" onclick="sli(1)">Selanjutnya</button></div></section>
+
+<section id="fase" class="scr"></section>
+<main id="app" class="scr tabs"></main>
+<nav class="nav" id="nav"></nav>
+<section id="play" class="scr"></section>
+<div id="rep"></div>
+
+<script>
+// ============ PENGATURAN DATABASE (GOOGLE SHEETS via GOOGLE APPS SCRIPT) ============
+// Ganti teks di bawah dengan URL Web App GAS Anda (berakhiran /exec).
+const GAS_URL = "URL_GAS_ANDA_DISINI";
+// ========================================================================================
+const GAS_ON=()=>typeof GAS_URL==="string"&&GAS_URL.indexOf("https://script.google.com/")===0;
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+let QUE=[];try{QUE=JSON.parse(localStorage.getItem("elmath_q"))||[]}catch(e){}
+const sq=()=>{try{localStorage.setItem("elmath_q",JSON.stringify(QUE))}catch(e){}};
+let busy=false;
+function post(a,d){if(!GAS_ON()||!S.n)return;if(a==="siswa")QUE=QUE.filter(q=>q.a!=="siswa");
+ QUE.push({a,d:Object.assign({nama:S.n,kelas:S.k,fase:S.fase||"",ts:new Date().toISOString()},d)});sq();flush()}
+async function flush(){if(busy||!QUE.length||!GAS_ON())return;busy=true;
+ try{while(QUE.length){const it=QUE[0];const r=await fetch(GAS_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:it.a,data:it.d})});const j=await r.json();if(!j.ok&&!/wajib/.test(j.error||""))throw new Error(j.error);QUE.shift();sq()}}catch(e){}busy=false}
+addEventListener("online",flush);setTimeout(flush,2500);
+const sync=()=>post("siswa",{xp:S.xp,koin:S.coin,streak:S.streak,level:Math.floor(S.xp/100)+1,benar:S.c,total:S.t,bintang:S.st});
+async function restore(){if(GAS_ON()){try{const r=await fetch(GAS_URL+"?action=get&nama="+encodeURIComponent(S.n)+"&kelas="+encodeURIComponent(S.k));const j=await r.json();
+ if(j.ok&&j.data&&Number(j.data.xp)>S.xp){const d=j.data;S.xp=+d.xp||0;S.coin=+d.koin||0;S.streak=Math.max(S.streak,+d.streak||0);S.c=+d.benar||0;S.t=+d.total||0;
+ try{const rs=JSON.parse(d.bintang)||{};for(const k in rs)S.st[k]=Math.max(S.st[k]||0,+rs[k]||0)}catch(e){}if(!S.fase&&d.fase)S.fase=d.fase;sv()}}catch(e){}}sync()}
+async function rank(){const b=$("#rk");b.textContent="Memuat…";try{const r=await fetch(GAS_URL+"?action=rank&fase="+(S.fase||"A"));const j=await r.json();
+ b.innerHTML=j.ok&&j.rows.length?"<ol>"+j.rows.map(x=>`<li>${esc(x.nama)} (${esc(x.kelas)}) · ⭐ ${esc(x.xp)} XP</li>`).join("")+"</ol>":"Belum ada data."}catch(e){b.textContent="Gagal memuat. Periksa koneksi dan GAS_URL."}}
+const $=s=>document.querySelector(s),R=(a,b)=>Math.floor(Math.random()*(b-a+1))+a,sh=a=>a.sort(()=>Math.random()-.5);
+let S;try{S=JSON.parse(localStorage.getItem("elmath"))}catch(e){}
+S=S||{n:"",k:"",coin:0,xp:0,streak:0,last:"",claim:"",st:{},c:0,t:0};
+const sv=()=>{try{localStorage.setItem("elmath",JSON.stringify(S))}catch(e){}};
+const go=id=>{document.querySelectorAll(".scr").forEach(x=>x.classList.toggle("on",x.id===id));$("#nav").classList.toggle("on",id==="app");scrollTo(0,0)};
+const op=id=>$("#"+id).classList.add("on"),cl=id=>$("#"+id).classList.remove("on");
+const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="id-ID";speechSynthesis.speak(u)}catch(e){}};
+const num=(a,s,st)=>{const o=new Set([a]);let g=0;while(o.size<4&&g++<80){const v=a+R(-4,4)*st;if(v>=0)o.add(v)}return{s,a,o:sh([...o])}};
+const G=[
+["Sabang","⚓","Fondasi: Berhitung 1–10","Hitung benda satu per satu, lalu gabungkan.",()=>{const w=Math.random();if(w<.3){const g=R(1,3),r=R(0,4),q=num(5*g+r,`Turus ikan tangkapan hari ini: ${"卌".repeat(g)}${"|".repeat(r)} (卌 = 5 ikan). Berapa ikan yang ditangkap?`,1);q.tag="📊 Data: turus";return q}if(w<.5){const n=R(2,6),q=num(2*n,`Piktogram: tiap 🐟 mewakili 2 ikan. Ada ${"🐟".repeat(n)}. Berapa ikan semuanya?`,2);q.tag="📊 Data: piktogram";return q}if(w<.65){const t=sh([2,3,4,5,6,7,8,9]).slice(0,3),n=["nila","mas","lele"],q=mc(n[t.indexOf(Math.max(...t))],`Data ikan di kolam: nila ${t[0]}, mas ${t[1]}, lele ${t[2]}. Jenis ikan mana yang paling banyak?`,n);q.tag="📊 Data: membandingkan";return q}const a=R(1,5+lv()),b=R(1,5+lv());return num(a+b,`Nelayan di Teluk Tomini menangkap ${a} ikan 🐟 pagi dan ${b} ikan lagi siang. Berapa semua ikannya?`,1)}],
+["Sumatra","🌴","Fase A: Penjumlahan","Susun satuan dan puluhan, jumlahkan dari satuan dulu.",()=>{const a=R(12,50+15*lv()),b=R(10,40+15*lv());return num(a+b,`Di pasar Limboto, Bu Aisyah menjual ${a} ikan nila pagi dan ${b} ikan sore. Berapa semuanya?`,1)}],
+["Jawa","🏯","Fase A: Pengurangan","Mengurangi sama dengan mengambil sebagian dari semuanya.",()=>{const b=R(10,29+10*lv()),a=R(Math.max(30,b+1),90+20*lv());return num(a-b,`Petani jagung Gorontalo panen ${a} tongkol. ${b} tongkol dibagikan ke tetangga karena sayang sesama. Sisa berapa?`,1)}],
+["Kalimantan","🦧","Fase B: Perkalian","Perkalian adalah penjumlahan berulang.",()=>{const a=R(3,9),b=R(3,9+lv());return num(a*b,`Ada ${a} perahu di Danau Limboto. Tiap perahu membawa ${b} nelayan. Berapa nelayan semuanya?`,2)}],
+["Komodo","🦎","Fase B: Pembagian","Pembagian adalah membagi rata.",()=>{const b=R(2,8+lv()),a=R(2,9+2*lv());return num(a,`${a*b} butir binte biluhuta dibagi rata untuk ${b} anak yatim. Tiap anak dapat berapa?`,1)}],
+["Danau Limboto","🌅","Fase B: Pecahan & Persen","Pecahan = bagian dibagi jumlah bagian yang sama.",()=>{if(Math.random()<.3){const p=[[50,"1/2"],[25,"1/4"],[10,"1/10"],[75,"3/4"]][R(0,3)];return{tag:"💯 Persen sederhana",s:`Dari 100 kelereng, ${p[0]} kelereng berwarna biru. Itu sama dengan ${p[0]}% atau pecahan berapa?`,a:p[1],o:sh(["1/2","1/4","1/10","3/4"])}}const d=R(2,8+lv()),n=R(1,d-1),a=n+"/"+d,o=new Set([a]);while(o.size<4){const dd=R(2,8);o.add(R(1,dd-1)+"/"+dd)}return{s:`Sebuah semangka dipotong ${d} bagian sama. Kamu makan ${n} bagian, sisanya dibagi teman. Pecahan yang kamu makan?`,a,o:sh([...o])}}],
+["Teluk Tomini","🐬","Fase C: Pengukuran","1 meter = 100 sentimeter.",()=>{const a=R(2,9+4*lv()),b=R(1,9);return num((a+b)*100,`Tali perahu nelayan ${a} m disambung ${b} m. Panjangnya berapa cm?`,100)}],
+["Merauke","🦘","Fase C: Persen","Persen = per seratus.",()=>{const t=(lv()<2?[50,100,200]:[40,80,100,200])[R(0,lv()<2?2:3)],p=(lv()<2?[10,25,50]:[10,20,25,40,50,75])[R(0,lv()<2?2:5)];return num(t*p/100,`Dari ${t} bibit mangrove yang ditanam demi menjaga pantai, ${p}% hidup. Berapa bibit yang hidup?`,5)}],
+["Bunaken","🐠","Fase A: Uang & Kembalian","Kembalian = uang yang dibayar dikurangi harga.",()=>{const h=R(2,9+3*lv())*1000,b=[[10000,20000],[20000,50000]][lv()>0?1:0][R(0,1)];return num(b-h,`Kamu membeli ikan bakar Rp${h} di warung Gorontalo dan membayar Rp${b}. Berapa rupiah kembaliannya?`,1000)}],
+["Bali","🌺","Fase A: Bangun Datar","Hitung banyak sisinya satu per satu.",()=>{const f=[["segitiga",3],["persegi",4],["segilima",5],["segienam",6],["segitujuh",7],["segidelapan",8]][R(0,lv()>1?5:3)];return num(f[1],`Atap rumah adat berbentuk ${f[0]}. Berapa banyak sisinya?`,1)}],
+["Toraja","⛰️","Fase B: Waktu","Jam selesai dikurangi jam mulai.",()=>{const a=R(4,9),d=R(2,6+lv());return num(d,`Nelayan berangkat melaut pukul ${a}.00 dan pulang pukul ${a+d}.00. Berapa jam mereka melaut?`,1)}],
+["Raja Ampat","🐢","Fase B: Keliling","Keliling persegi = 4 × sisi.",()=>{const s=R(3,12+6*lv());return num(4*s,`Kolam ikan nila berbentuk persegi dengan sisi ${s} m. Berapa meter keliling kolam?`,2)}],
+["Banda","🏝️","Fase B: Luas","Luas persegi panjang = panjang × lebar.",()=>{const p=R(3,12+4*lv()),l=R(2,8+2*lv());return num(p*l,`Kebun jagung berukuran ${p} m × ${l} m. Berapa m² luasnya?`,2)}],
+["Papua","🦜","Fase C: Rata-rata","Rata-rata = jumlah data dibagi banyak data.",()=>{const m=R(5,20+10*lv()),d=R(1,4);return num(m,`Tiga hari nelayan menangkap ${m-d}, ${m}, dan ${m+d} kg ikan. Berapa rata-rata per hari?`,1)}],
+["Bromo","🌋","Fase C: Peluang","Peluang = kejadian yang diinginkan dibagi semua kejadian.",()=>{if(Math.random()<.5){const r=R(1,6),b=R(1,6);if(r!=b)return{tag:"🎲 Kejadian lebih mungkin",s:`Dalam kantong ada ${r} kelereng merah dan ${b} biru. Warna apa yang lebih mungkin terambil?`,a:r>b?"merah":"biru",o:["merah","biru"]}}const r=R(1,5),b=R(3,5+lv()),t=r+b,a=r+"/"+t,o=new Set([a]);while(o.size<4)o.add(R(1,t)+"/"+t);return{s:`Dalam kantong ada ${r} kelereng merah dan ${b} biru. Berapa peluang terambil kelereng merah?`,a,o:sh([...o])}}],
+["Danau Toba","🏞️","Fase C: KPK","Cari kelipatan persekutuan terkecil.",()=>{const p=[[2,3,6],[3,4,12],[2,5,10],[4,6,12],[3,5,15],[6,8,24]][R(0,Math.min(5,2+2*lv()))];return num(p[2],`Perahu A berlayar tiap ${p[0]} hari, perahu B tiap ${p[1]} hari. Hari ke berapa keduanya berangkat bersama lagi?`,2)}],
+["Tantangan Nusantara","🇮🇩","Final: Campuran Semua Topik","Gunakan semua ilmu yang sudah kamu kumpulkan!",()=>{const l=pool();return G[l[R(0,l.length-1)]][4]()}],
+["Maluku","🌶️","Fase C: Luas Bangun Gabungan","Pisahkan bangun gabungan menjadi bangun sederhana, hitung luas masing-masing, lalu jumlahkan.",()=>{const a=R(3,9+3*lv()),b=R(2,6+2*lv()),c=R(2,6+2*lv()),d=R(2,6+2*lv());return num(a*b+c*d,`Kebun rempah di Maluku berbentuk gabungan dua persegi panjang: ${a} m × ${b} m dan ${c} m × ${d} m. Berapa m² luas seluruhnya?`,3)}],
+["Lombok","🏖️","Fase C: Operasi Pecahan","Jika penyebutnya sama, jumlahkan pembilangnya saja.",()=>{const d=R(5,10+2*lv()),a=R(1,3),b=R(1,3),r=(a+b)+"/"+d,o=new Set([r]);while(o.size<4)o.add(R(1,d)+"/"+d);return{s:`Kamu makan ${a}/${d} bagian kue dan temanmu ${b}/${d} bagian karena berbagi. Berapa bagian kue yang dimakan bersama?`,a:r,o:sh([...o])}}]];
+const mc=(a,s,o)=>({s,a,o:sh([...o])});
+const D=()=>({A:1,B:2,C:3})[S.fase]||1,M=()=>Math.round([12,99,999][D()-1]*(1+.35*gl())),ST=()=>[1,5,50][D()-1],pk=a=>a[D()-1];
+const GM=[
+["Congklak Hitung","🥥","bilangan",()=>{const a=R(3,M()),b=R(3,M());return num(a+b,`Lubang kiri berisi ${a} biji, lubang kanan ${b} biji. Jika dikumpulkan, ada berapa biji?`,ST())}],
+["Engklek Pola","🔢","aljabar",()=>{const s=R(1,9);if(D()==3)return num(s*8,`Pola petak engklek: ${s}, ${s*2}, ${s*4}, … Angka berikutnya?`,s);const d=pk([R(1,5),R(5,20)]);return num(s+3*d,`Pola petak engklek: ${s}, ${s+d}, ${s+2*d}, … Angka berikutnya?`,d)}],
+["Layang-Layang Bentuk","🪁","geometri",()=>{const k=pk([4,4,[5,6,8][R(0,2)]]),n=pk([R(2,9+gl()),R(10,30+5*gl()),R(10,40+5*gl())]);return num(k*n,`Ada ${n} hiasan segi-${k} dari layang-layang di Limboto. Berapa jumlah semua sisinya?`,k)}],
+["Kelereng Sortir","🔴","data",()=>{const m=pk([8,12,18])+gl(),r=R(1,m),b=R(1,m);return num(r,`${"🔴".repeat(r)}${"🔵".repeat(b)} Berapa kelereng merah?`,1)}],
+["Timbangan Pasar","⚖️","pengukuran",()=>{const d=D();let a,b,s;if(d<3){a=R(1,M());b=R(1,M());s=`Tomat ${a} kg, cabai ${b} kg.`}else{a=R(1,9);b=a*1000+R(-3,3)*250;s=`Tomat ${a} kg, cabai ${b} gram.`}const x=d<3?a:a*1000;return mc(x>b?"tomat":x<b?"cabai":"sama berat",`Timbang yang adil! ${s} Mana yang lebih berat?`,["tomat","cabai","sama berat"])}],
+["Panjat Pinang","🎋","pengukuran",()=>{const H=pk([100,300,500])+100*gl(),x=R(1,H/10-1)*10;return num(H-x,`Batang pinang setinggi ${H} cm. Kamu sudah memanjat ${x} cm. Berapa cm lagi sampai puncak?`,10)}],
+["Warung Kembalian","🏪","uang",()=>{const d=D();if(d<3){const h=R(1,9+2*gl())*(d==1?500:2500),b=d==1?10000:50000;return num(b-h,`Kamu membeli jajanan Rp${h} dan membayar Rp${b}. Berapa rupiah kembaliannya?`,d==1?500:2500)}const h=R(10,40)*500,g=R(10,40)*500;return num(100000-h-g,`Kamu membeli ikan Rp${h} dan sayur Rp${g}, lalu membayar Rp100000. Berapa rupiah kembaliannya?`,2500)}],
+["Potong Tumpeng","🍚","pecahan",()=>{const d=D(),n=R(1,9);if(d==3){const a="0,"+n,o=new Set([a]);while(o.size<4)o.add("0,"+R(1,9));return{s:`Tumpeng dipotong 10 bagian sama dan ${n} bagian dimakan. Pecahan ${n}/10 ditulis dalam desimal?`,a,o:sh([...o])}}const q=R(5,8),k=R(1,q-1),den=d==1?q:2*q,a=d==1?(q-k)+"/"+q:(2*k)+"/"+den,o=new Set([a]);while(o.size<4)o.add(R(1,den-1)+"/"+den);return{s:d==1?`Tumpeng syukuran dipotong ${q} bagian sama. ${k} bagian dibagikan ke tetangga. Pecahan yang tersisa?`:`Pecahan ${k}/${q} senilai dengan pecahan berapa per ${den}?`,a,o:sh([...o])}}],
+["Kupon Undian","🎟️","peluang",()=>{if(D()==1){const r=R(1,2)==1?[5,1]:[1,5];return mc(r[0]>r[1]?"merah":"biru",`Kantong berisi ${r[0]} kelereng merah dan ${r[1]} biru. Warna mana yang lebih mungkin terambil?`,["merah","biru"])}return G[14][4]()}],
+["Lompat Tali","🪢","bilangan",()=>{const n=pk([R(5,40+20*gl()),R(100,999+300*gl()),R(1000,99999)]);return mc(n%2?"ganjil":"genap",`Anak melompat tali ${n} kali. Bilangan ${n} itu ganjil atau genap?`,["ganjil","genap"])}],
+["Gasing Kelipatan","🌀","bilangan",()=>{const d=D();if(d==3){const p=[[2,3,6],[3,4,12],[4,6,12],[6,8,24],[8,12,24]][R(0,4)];return num(p[2],`Dua gasing berputar tiap ${p[0]} detik dan ${p[1]} detik. Dalam berapa detik keduanya berputar bersamaan lagi?`,2)}const k=R(2,(d==1?9:12)+gl()),i=(d==1?4:7)+gl();return num(i*k,`Gasing berputar mengikuti kelipatan ${k}: ${k}, ${2*k}, ${3*k}, … Berapa kelipatan ke-${i}?`,k)}],
+["Bakiak Selisih","🩴","bilangan",()=>{const m=pk([30,999,9999]),a=R(Math.floor(m/3),m),b=R(1,Math.floor(m/3)-1);return num(a-b,`Regu A melangkah ${a} kali, regu B ${b} kali. Berapa selisih langkahnya?`,ST())}]];
+const GMOLD=[
+["Congklak Hitung","🥥","bilangan",()=>{const a=R(3,12),b=R(3,12);return num(a+b,`Lubang kiri berisi ${a} biji, lubang kanan ${b} biji. Jika dikumpulkan, ada berapa biji?`,1)}],
+["Engklek Pola","🔢","aljabar",()=>{const s=R(1,9),d=R(1,5);return num(s+3*d,`Pola petak engklek: ${s}, ${s+d}, ${s+2*d}, … Angka berikutnya?`,d)}],
+["Layang-Layang Bentuk","🪁","geometri",()=>{const n=R(2,9);return num(4*n,`Layang-layang berbentuk segi empat. Ada ${n} layang-layang di Limboto. Berapa jumlah semua sisinya?`,4)}],
+["Kelereng Sortir","🔴","data",()=>{const r=R(1,8),b=R(1,8);return num(r,`${"🔴".repeat(r)}${"🔵".repeat(b)} Berapa kelereng merah?`,1)}],
+["Timbangan Pasar","⚖️","pengukuran",()=>{const a=R(1,9),b=R(1,9);return mc(a>b?"tomat":a<b?"cabai":"sama berat",`Timbang yang adil! Tomat ${a} kg, cabai ${b} kg. Mana yang lebih berat?`,["tomat","cabai","sama berat"])}],
+["Panjat Pinang","🎋","pengukuran",()=>{const x=R(1,25)*10;return num(300-x,`Batang pinang setinggi 300 cm. Kamu sudah memanjat ${x} cm. Berapa cm lagi sampai puncak?`,10)}],
+["Warung Kembalian","🏪","uang",()=>{const h=R(1,9)*500;return num(10000-h,`Kamu membeli jajanan Rp${h} dan membayar Rp10000. Berapa rupiah kembaliannya?`,500)}],
+["Potong Tumpeng","🍚","pecahan",()=>{const d=R(5,8),n=R(1,d-1),a=(d-n)+"/"+d,o=new Set([a]);while(o.size<4)o.add(R(1,d-1)+"/"+d);return{s:`Tumpeng syukuran dipotong ${d} bagian sama. ${n} bagian dibagikan ke tetangga. Pecahan yang tersisa?`,a,o:sh([...o])}}],
+["Kupon Undian","🎟️","peluang",()=>G[14][4]()],
+["Lompat Tali","🪢","bilangan",()=>{const n=R(5,40);return mc(n%2?"ganjil":"genap",`Anak melompat tali ${n} kali. Bilangan ${n} itu ganjil atau genap?`,["ganjil","genap"])}],
+["Gasing Kelipatan","🌀","bilangan",()=>{const k=R(2,9);return num(4*k,`Gasing berputar mengikuti kelipatan ${k}: ${k}, ${2*k}, ${3*k}, … Angka berikutnya?`,k)}],
+["Bakiak Selisih","🩴","bilangan",()=>{const a=R(10,30),b=R(1,9);return num(a-b,`Regu A melangkah ${a} kali, regu B ${b} kali. Berapa selisih langkahnya?`,1)}]];
+const tg=(g,q)=>(q.tag=g,q);
+const CB=[
+()=>{const a=R(1,6+lv()),b=R(1,4+lv());return tg("🧩 Cambridge: Angka yang hilang",num(b,`Di pantai Teluk Tomini ada ${a} perahu 🛶. Setelah beberapa perahu datang, jumlahnya menjadi ${a+b}. Berapa perahu yang datang?`,1))},
+()=>{const a=R(12,40+15*lv()),b=R(10,30+15*lv());return tg("🔁 Cambridge: Cari nilai awal",num(a,`Bu Aisyah menjual ${b} ikan lagi sehingga total ikannya ${a+b}. Berapa ikan miliknya semula?`,1))},
+()=>{const s=R(10,40+15*lv()),b=R(10,30+15*lv());return tg("🔁 Cambridge: Cari nilai awal",num(s+b,`Setelah membagikan ${b} tongkol jagung kepada tetangga, petani masih punya ${s}. Berapa tongkol hasil panennya?`,1))},
+()=>{const b=R(2,9+lv());return tg("🔮 Cambridge: Temukan pola",num(4*b,`Satu perahu membawa ${b} nelayan. Pola: ${b}, ${2*b}, ${3*b}, … Berapa nelayan pada 4 perahu?`,b))},
+()=>{const a=R(3,9+lv()),b=R(3,9+lv());return tg("🗣️ Cambridge: Fakta keluarga",num(a,`Diketahui ${a} × ${b} = ${a*b}. Jadi ${a*b} ÷ ${b} = …`,1))},
+()=>{const d=R(5,9+lv()),s=new Set();while(s.size<3)s.add(R(1,d-1));const l=[...s],m=Math.max(...l);return tg("🧪 Cambridge: Bandingkan",{s:`Tiga potong semangka: ${l.map(x=>x+"/"+d).join(", ")}. Potongan mana yang paling besar?`,a:m+"/"+d,o:sh(l.map(x=>x+"/"+d))})},
+()=>{const k=R(2,9+5*lv());return tg("🔁 Cambridge: Konversi balik",num(k,`Tali sepanjang ${k*100} cm sama dengan berapa meter?`,1))},
+()=>{const T=(lv()<2?[40,100,200]:[40,80,100,200,400])[R(0,lv()<2?2:4)],p=(lv()<2?[10,25,50]:[10,20,25,40,50,75])[R(0,lv()<2?2:5)];return tg("🔁 Cambridge: Cari nilai awal",num(T,`${p}% dari bibit mangrove adalah ${T*p/100} bibit. Berapa jumlah semua bibit?`,10))},
+()=>{const h1=R(2,6+2*lv())*1000,h2=R(2,6+2*lv())*1000,b=R(8,12+4*lv())*1000;return tg("🗣️ Cambridge: Yakinkan",mc(h1+h2<=b?"Ya":"Tidak",`Kamu membawa Rp${b}. Cukupkah untuk membeli dua jajanan seharga Rp${h1} dan Rp${h2}?`,["Ya","Tidak"]))},
+()=>{const p=[["punya 3 sisi","segitiga"],["punya 4 sisi sama panjang dan 4 sudut siku-siku","persegi"],["tidak punya sudut","lingkaran"],["punya 5 sisi","segilima"]][R(0,3)];return tg("🧪 Cambridge: Klasifikasi",mc(p[1],`Bangun datar apa yang ${p[0]}?`,["segitiga","persegi","lingkaran","segilima"]))},
+()=>{const a=R(4,9),d=R(2,5+lv());return tg("🧩 Cambridge: Waktu",num(a+d,`Pengajian dimulai pukul ${a}.00 dan berlangsung ${d} jam. Selesai pukul berapa (angka jamnya)?`,1))},
+()=>{const s=R(3,12+6*lv());return tg("🔁 Cambridge: Kebalikan",num(s,`Keliling sebuah kolam persegi adalah ${4*s} m. Berapa meter panjang satu sisinya?`,1))},
+()=>{const p=R(4,12+4*lv()),l=R(2,8+2*lv());return tg("🔁 Cambridge: Kebalikan",num(p,`Luas kebun jagung ${p*l} m² dan lebarnya ${l} m. Berapa meter panjangnya?`,1))},
+()=>{const m=R(10,20+10*lv()),a=R(5,m),b=R(5,m);return tg("🧩 Cambridge: Data yang hilang",num(3*m-a-b,`Rata-rata tangkapan 3 hari adalah ${m} kg. Dua hari pertama ${a} kg dan ${b} kg. Berapa kg tangkapan hari ketiga?`,1))},
+()=>{const k=[2,3,4,6,5,12][R(0,Math.min(5,3+lv()))],c=Math.floor(12/k),a=c+"/12",o=new Set([a]);while(o.size<4)o.add(R(1,6)+"/12");return tg("🎲 Cambridge: Peluang",{s:`Kartu bernomor 1 sampai 12 dikocok. Berapa peluang terambil kelipatan ${k}?`,a,o:sh([...o])})},
+()=>{const p=[[12,18,6],[8,12,4],[10,15,5],[9,12,3],[6,8,2],[18,24,6],[20,30,10]][R(0,Math.min(6,2+2*lv()))];return tg("🧪 Cambridge: Faktor persekutuan",num(p[2],`Dua tali masing-masing ${p[0]} m dan ${p[1]} m dipotong sama panjang tanpa sisa. Berapa meter panjang terpanjang tiap potongan?`,1))},
+()=>{const l=pool();return CB[l[R(0,l.length-1)]]()},
+()=>{const a=R(3,9+3*lv()),b=R(2,6+2*lv()),c=R(2,6+2*lv()),d=R(2,6+2*lv());return tg("🔁 Cambridge: Bagian yang hilang",num(c*d,`Luas kebun gabungan ${a*b+c*d} m². Satu bagian berukuran ${a} m × ${b} m. Berapa m² luas bagian lainnya?`,3))},
+()=>{const d=R(6,10+2*lv()),a=R(1,3),b=R(1,3),r=(d-a-b)+"/"+d,o=new Set([r]);while(o.size<4)o.add(R(1,d-1)+"/"+d);return tg("🔁 Cambridge: Sisa pecahan",{s:`Satu loyang kue dipotong ${d} bagian sama. ${a} bagian dibagikan ke tetangga dan ${b} bagian ke yatim. Pecahan yang tersisa?`,a:r,o:sh([...o])})}];
+const CAT=["Cinta Allah dan Rasul ☪️","Cinta sesama 🤝","Cinta alam 🌿","Cinta tanah air 🇮🇩"];
+const MSG=["Berhitung dengan teliti dan jujur adalah syukur kepada Allah dan meneladani Rasul ☪️","Hitunganmu bermakna ketika dipakai untuk berbagi dan berlaku adil pada sesama 🤝","Mengukur dan menghitung membantu kita merawat danau, laut, dan hutan 🌿","Menguasai matematika adalah cara bangga dan mengabdi untuk Indonesia 🇮🇩"];
+const KB=[2,1,1,3,1,2,2,2,2,3,0,2,2,3,0,1,3,3,1];
+function vary(q){if(q.tag)return q;const r=Math.random();
+if(r<.3&&q.o.length>=2){const ok=Math.random()<.5,w=ok?q.a:q.o.find(x=>x!=q.a);return{tag:"🔎 Cambridge: Kritisi jawaban",s:`${q.s} Budi menjawab ${w}. Apakah jawaban Budi benar?`,a:ok?"Benar":"Salah",ex:"jawaban tepat: "+q.a,o:["Benar","Salah"]}}
+if(r<.5&&typeof q.a=="number"){const t=q.a+(Math.random()<.5?-1:1)*R(1,3);return{tag:"📐 Cambridge: Perkiraan masuk akal",s:`${q.s} Tanpa menghitung rumit, apakah jawabannya lebih dari ${t}?`,a:q.a>t?"Ya":"Tidak",ex:"jawaban tepat: "+q.a,o:["Ya","Tidak"]}}
+q.tag="💡 Pembelajaran mendalam: cerita bermakna";return q}
+function refl(){const c=KB[Q.i];go("play");$("#play").innerHTML=`<div class="card"><small>🌱 Refleksi · bermakna, berkesadaran, menggembirakan</small><p class="q">Ingat cerita-cerita di pelabuhan ${G[Q.i][0]} (${G[Q.i][2]}). Nilai cinta apa yang paling kamu rasakan?</p></div><div class="opts">${CAT.map((x,j)=>`<button class="opt" onclick="rfa(${j})">${x}</button>`).join("")}</div>`}
+function rfa(j){const c=KB[Q.i];S.xp+=j==c?8:3;sv();post("refleksi",{pelabuhan:G[Q.i][0],pilihan:CAT[j],sesuai:j==c?"Ya":"Tidak"});sync();$("#play").innerHTML=`<div class="card ctr"><h3>${j==c?"Tepat! 💚":"Cinta punya banyak wajah 💚"}</h3><p>Yang paling dekat: <b>${CAT[c]}</b></p><p>${MSG[c]}</p><button class="btn" onclick="fin()">Lihat Hasil</button></div>`}
+const PH="AAABBBCCAABBBCCC-CC";
+const lst=f=>{const a=[];for(let i=0;i<19;i++)if(PH[i]==f)a.push(i);a.push(16);return a};
+const sk=i=>i==16?"T"+S.fase:i;
+const pool=()=>lst(S.fase).filter(i=>i!=16);
+const FN={A:"1–2",B:"3–4",C:"5–6"};
+const chips=()=>"ABC".split("").map(f=>`<button class="btn ${S.fase==f?"":"ghost"}" onclick="setF('${f}','peta')">Fase ${f} · Kelas ${FN[f]}</button>`).join("");
+function setF(f,v){S.fase=f;sv();sync();render(v)}
+function pickF(){go("fase");$("#fase").innerHTML=`<div class="card ctr" style="max-width:560px;margin:20px auto"><h2>Pilih Fase Belajarmu</h2><p>Kamu bisa menggantinya kapan saja di Peta atau Profil.</p>${[["A","Berhitung, penjumlahan, pengurangan, uang, bangun datar"],["B","Perkalian, pembagian, pecahan, persen sederhana, waktu, keliling, luas"],["C","Pengukuran, persen, rata-rata, kejadian lebih mungkin, KPK dan FPB, luas gabungan, operasi pecahan"]].map(x=>`<div class="card"><h3>Fase ${x[0]} · Kelas ${FN[x[0]]}</h3><p>${x[1]}</p><button class="btn" onclick="setF('${x[0]}','home')">Pilih Fase ${x[0]}</button></div>`).join("")}</div>`}
+const AY={A:["اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ","QS. Al-Alaq [96]: 1","Bacalah dengan (menyebut) nama Tuhanmu yang menciptakan.","Belajar berhitung dimulai dengan membaca dan basmalah, tanda cinta kepada Allah."],
+B:["إِنَّا كُلَّ شَيْءٍ خَلَقْنَاهُ بِقَدَرٍ","QS. Al-Qamar [54]: 49","Sungguh, Kami menciptakan segala sesuatu menurut ukuran.","Panjang, luas, dan waktu punya ukuran. Mengukur dengan teliti adalah cara mengagumi ciptaan Allah dan merawat alam."],
+C:["وَأَحْصَىٰ كُلَّ شَيْءٍ عَدَدًا","QS. Al-Jinn [72]: 28 (potongan akhir ayat)","… dan Dia menghitung segala sesuatu satu per satu.","Allah Maha Teliti. Data, rata-rata, dan hitungan melatih kita jujur dan cermat untuk sesama dan bangsa."]};
+const ayat=()=>{const a=AY[S.fase]||AY.A;return `<div class="card"><small>📖 Ayat Fase ${S.fase}</small><div class="ar">${a[0]}</div><p class="ctr"><i>${a[1]}, terjemah Kemenag RI: “${a[2]}”</i><br>Tadabbur: ${a[3]}</p></div>`};
+const pl=i=>{const p=lst(S.fase).indexOf(i);return p<2?0:p<4?1:2};
+const lv=()=>Math.min(3,pl(Q.i)+(Q.n>=3?1:0));
+const gl=()=>{const l=lst(S.fase).filter(i=>i!=16),c=l.filter(i=>S.st[i]).length,L=c<2?0:c<4?1:2;return Math.min(3,L+((Q&&Q.n>=3)?1:0))};
+const LOVEOLD=["Berbagi dengan tetangga = cinta sesama 🤝","Menjaga danau dan laut = cinta alam 🌿","Bangga jadi anak Gorontalo = cinta tanah air 🇮🇩","Belajar dengan niat baik = cinta kepada Allah dan Rasul ☪️"];
+const lvl=()=>Math.floor(S.xp/100)+1,tt=()=>["Pelaut Cilik","Kapten Muda","Juara Hitung","Navigator","Laksamana"][Math.min(4,Math.floor(lvl()/3))];
+setTimeout(()=>{if(S.n){S.fase?render("home"):pickF()}else go("cover")},1800);
+function sub(){const n=$("#fn").value.trim(),k=$("#fk").value.trim();if(n.length<3){$("#fe").textContent="Tulis nama lengkapmu (minimal 3 huruf).";return}if(!k){$("#fe").textContent="Tulis kelasmu dulu.";return}
+S.n=n;S.k=k;sv();restore();$("#iw").textContent="Selamat Datang, "+n+"!";si=0;sli(0);go("intro")}
+const SL=[["📖","Media “El Math” melatih berhitung setiap hari dengan gembira. Berlayarlah dari pelabuhan ke pelabuhan!"],["🗺️","Buka Peta, ketuk pulau yang terbuka, jawab 5 soal. Dapat 3 benar atau lebih, pulau berikutnya terbuka."],["🎲","Mainkan Game, kumpulkan koin, XP, dan jaga streak api harian. Tekan 🔊 untuk mendengar soal."]];let si=0;
+function sli(d){si+=d;if(si<0)si=0;if(si>=SL.length){pickF();return}
+$("#sl").innerHTML=`<div style="font-size:70px">${SL[si][0]}</div><p>${SL[si][1]}</p>`;$("#dots").textContent=SL.map((_,i)=>i==si?"●":"○").join(" ");$("#pv").style.visibility=si?"visible":"hidden";$("#nx").textContent=si==SL.length-1?"Masuk ke Menu Utama":"Selanjutnya"}
+const today=()=>new Date().toISOString().slice(0,10);
+function streak(){const t=today();if(S.last===t)return;const y=new Date(Date.now()-864e5).toISOString().slice(0,10);S.streak=S.last===y?S.streak+1:1;S.last=t;sv()}
+function nav(a){$("#nav").innerHTML=[["home","🏠","Home"],["peta","🗺️","Peta"],["game","🎲","Game"],["profil","👤","Profil"]].map(x=>`<button class="${x[0]==a?"a":""}" onclick="render('${x[0]}')"><span>${x[1]}</span>${x[2]}</button>`).join("")}
+const unl=i=>{const l=lst(S.fase),p=l.indexOf(i);return p==0||(p>0&&(S.st[sk(l[p-1])]||0)>0)},nextI=()=>{const i=lst(S.fase).find(j=>unl(j)&&!S.st[sk(j)]);return i===undefined?16:i};
+function render(v){streak();nav(v);go("app");const A=$("#app");
+const hd=`<div class="hdr"><b>Halo, ${S.n}! 👋</b><span>🏅 ${tt()} · Level ${lvl()} · Fase ${S.fase}</span></div>`;
+if(v=="home"){const n=nextI(),g=G[n],d=Math.min(S.streak,7)-1,rw=[5,10,15,20,25,30,50],ok=S.claim!==today();
+A.innerHTML=hd+`<div class="card" style="background:linear-gradient(90deg,#f08a24,#f5b041);color:#2b1a00"><small>LANJUTKAN BELAJAR</small><h3>${g[2]}</h3><button class="btn" onclick="intro(${n})">▶ ${g[0]}</button></div>
+${ayat()}<div class="stats"><div>🪙${S.coin}<small>koin</small></div><div>⭐${S.xp}<small>XP</small></div><div>🔥${S.streak}<small>hari</small></div><div>🎯${S.t?Math.round(S.c/S.t*100):100}%<small>akurasi</small></div></div>
+<div class="card"><b>Level ${lvl()}</b><div class="bar"><i style="width:${S.xp%100}%"></i></div></div>
+<div class="card"><b>🎁 Hadiah Harian</b> <small>makin lama makin besar!</small><div class="days">${rw.map((r,i)=>`<div class="${i==d?"t":""} ${i<d||(i==d&&!ok)?"d":""}">${["Sen","Sel","Rab","Kam","Jum","Sab","Min"][i]}<br>+${r}</div>`).join("")}</div>
+<button class="btn gold" ${ok?"":"disabled"} onclick="claim(${rw[d]})">${ok?"Ambil +"+rw[d]+" koin":"Sudah diambil ✔"}</button></div>`}
+if(v=="peta"){A.innerHTML=hd+`<h2>🗺️ Peta Pelabuhan Nusantara</h2><p>Ketuk pulau yang terbuka untuk mulai belajar.</p>${chips()}`+lst(S.fase).map(i=>[G[i],i]).map(([g,i])=>`<div class="isl ${unl(i)?"":"lk"}" onclick="${unl(i)?`intro(${i})`:""}"><div class="e">${unl(i)?g[1]:"🔒"}</div><div><b>${g[0]}</b><br><small>${g[2]} · ${"🔥".repeat(pl(i)+1)}</small><br>${"⭐".repeat(S.st[sk(i)]||0)||"—"}</div></div>`).join("")}
+if(v=="game"){A.innerHTML=hd+`<h2>🎲 Teluk Game</h2><p>Permainan tradisional Nusantara bersama si Kancil. Tingkat kesulitan mengikuti Fase ${S.fase}.</p>
+<div class="card"><b>🏃 Balap Karung</b> – berhitung cepat<br><button class="btn" onclick="race('b',10)">Mudah (≤10)</button><button class="btn gold" onclick="race('b',20)">Seru (≤20)</button></div>
+<div class="card"><b>🪢 Tarik Tambang Lawan Si Kancil</b> – jawab benar, tali tertarik<br><button class="btn" onclick="race('t',10)">Mudah (≤10)</button><button class="btn gold" onclick="race('t',20)">Seru (≤20)</button></div>
+<div class="card"><b>🎯 Susun Bilangan</b> – ketuk angka dari kecil ke besar<br><button class="btn" onclick="ord()">Main</button></div>${GM.map((g,j)=>`<div class="card"><b>${g[1]} ${g[0]}</b> – ${g[2]}<br><button class="btn" onclick="mini(${j})">Main</button></div>`).join("")}`}
+if(v=="profil"){A.innerHTML=hd+`<div class="card ctr"><div class="av">🦌</div><h2>${S.n}</h2><p>Kelas ${S.k} · ${tt()} · Level ${lvl()}</p>
+<p>🏅 ${["Langkah Awal","Pelaut Cilik","Juara Hitung"].filter((b,i)=>Object.keys(S.st).length>i).join(" · ")||"Selesaikan pulau pertama untuk lencana"}</p>
+<button class="btn" onclick="rep()">🖨️ Cetak Laporan PDF</button><button class="btn ghost" onclick="pickF()">Ganti Fase</button><button class="btn ghost" onclick="if(confirm('Hapus semua progres?')){localStorage.removeItem('elmath');location.reload()}">Reset</button></div>
+<div class="card"><div class="ar">وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ</div><p class="ctr"><i>QS. Ar-Rahman [55]: 9, terjemah Kemenag RI: “Tegakkanlah timbangan itu dengan adil dan janganlah kamu mengurangi neraca itu.”</i><br>Hikmah: berhitung dengan jujur dan teliti adalah akhlak mulia.</p></div><div class="card"><b>🏆 Peringkat Fase ${S.fase}</b><div id="rk">${GAS_ON()?'<button class="btn ghost" onclick="rank()">Lihat Peringkat</button>':"<small>Database belum terhubung (isi GAS_URL).</small>"}</div></div>`}}
+function claim(r){S.coin+=r;S.claim=today();sv();sync();render("home")}
+function rep(){$("#rep").innerHTML=`<h2>Laporan Belajar El Math</h2><p>Siswa: ${S.n} · Kelas: ${S.k} · Fase: ${S.fase}<br>Pengembang: Jefri Is Zakaria, MAN 1 Boalemo (jefri_1986@madrasah.kemenag.go.id)</p><table><tr><th>Pelabuhan</th><th>Topik</th><th>Bintang</th></tr>${lst(S.fase).map(i=>[G[i],i]).map(([g,i])=>`<tr><td>${g[0]}</td><td>${g[2]}</td><td>${S.st[sk(i)]||0}/3</td></tr>`).join("")}</table><p>Level ${lvl()} · XP ${S.xp} · Koin ${S.coin} · Streak ${S.streak} hari · Akurasi ${S.t?Math.round(S.c/S.t*100):100}%</p>`;print()}
+function intro(i){const g=G[i];go("play");$("#play").innerHTML=`<div class="card ctr"><div style="font-size:70px">${g[1]}</div><h2>${g[0]}</h2><h3>${g[2]}</h3><p>💡 ${g[3]}</p><p>Tingkat pelabuhan: ${"🔥".repeat(pl(i)+1)} ${["Mudah","Sedang","Menantang"][pl(i)]}</p><button class="btn" onclick="quiz(${i})">Mulai 5 Soal</button><button class="btn ghost" onclick="render('peta')">Kembali</button></div>`}
+let Q;function quiz(i){Q={i,n:0,ok:0};nq()}
+function mini(j){Q={i:0,n:0,ok:0,gen:GM[j][3],g:j};nq()}
+function nq(){const q=vary(!Q.gen&&Math.random()<.4?CB[Q.i]():(Q.gen||G[Q.i][4])());Q.q=q;go("play");$("#play").innerHTML=`<div class="bar"><i style="width:${Q.n*20}%"></i></div><div class="card"><small>Soal ${Q.n+1} dari 5 · ${q.tag}${" · 🔥 "+["Mudah","Sedang","Menantang","Sangat menantang"][Q.gen?gl():lv()]}</small><p class="q">${q.s} <button class="btn ghost" onclick="say(Q.q.s)" aria-label="Dengarkan">🔊</button></p></div><div class="opts">${q.o.map(o=>`<button class="opt" onclick="ans(this,'${o}')">${o}</button>`).join("")}</div><div id="fb" class="card" style="display:none"></div>`}
+function ans(b,v){const q=Q.q,r=v==q.a;document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add("ok")});if(!r)b.classList.add("no");S.t++;if(r){S.c++;Q.ok++;S.coin+=2;S.xp+=10}sv();
+const f=$("#fb");f.style.display="block";f.innerHTML=`<b>${r?"Benar! 🎉":"Belum tepat. Jawabannya "+q.a+(q.ex?" ("+q.ex+")":"")}</b><br>${MSG[Q.gen?R(0,3):KB[Q.i]]}<br><button class="btn" onclick="Q.n++;Q.n<5?nq():fin()">${Q.n<4?"Lanjut":"Lihat Hasil"}</button>`}
+function fin(){if(!Q.gen&&!Q.rf){Q.rf=1;return refl()}if(Q.gen){S.coin+=Q.ok*2;S.xp+=Q.ok*5;sv();post("game",{game:GM[Q.g][0],hasil:Q.ok+"/5",koin:Q.ok*2,xp:Q.ok*5});sync();$("#play").innerHTML=`<div class="card ctr"><div style="font-size:60px">${GM[Q.g][1]}</div><h2>${Q.ok}/5 benar</h2><p>+${Q.ok*2} koin, +${Q.ok*5} XP</p><button class="btn" onclick="mini(${Q.g})">Main Lagi</button><button class="btn gold" onclick="render('game')">Menu Game</button></div>`;return}const s=Q.ok>=5?3:Q.ok>=4?2:Q.ok>=3?1:0;if(s>(S.st[sk(Q.i)]||0))S.st[sk(Q.i)]=s;S.xp+=s*10;sv();post("kuis",{pelabuhan:G[Q.i][0],topik:G[Q.i][2],tingkat:["Mudah","Sedang","Menantang"][pl(Q.i)],benar:Q.ok,total:5,bintang:s});sync();const nu=s>0&&Q.i!=16;
+$("#play").innerHTML=`<div class="card ctr"><div style="font-size:60px">${s?"🏆":"💪"}</div><h2>${Q.ok}/5 benar</h2><p>${"⭐".repeat(s)||"Coba lagi, ya!"}</p><p>${s?(nu?"Pelabuhan berikutnya terbuka! ⚓":"Kamu menaklukkan semua pelabuhan! 🇮🇩"):"Butuh 3 jawaban benar untuk membuka pelabuhan berikutnya."}</p><button class="btn" onclick="quiz(${Q.i})">Ulangi</button><button class="btn gold" onclick="render('peta')">Ke Peta</button></div>`}
+let T;function race(m,mx){const mx0=mx;mx*=({A:1,B:3,C:6})[S.fase]||1;let p=0,k=m=="t"?50:0;const g=()=>{const e=1+Math.floor((m=="t"?k:p)/40)*.3,a=R(1,Math.round(mx*e)),b=R(1,Math.round(mx*e));if(S.fase=="B"&&Math.random()<.5){const x=R(2,9),y=R(2,9);return num(x*y,`${x} × ${y} = ?`,2)}if(S.fase=="C"){const x=R(2,12),y=R(2,12);return Math.random()<.5?num(x*y,`${x} × ${y} = ?`,3):num(a+b,`${a} + ${b} = ?`,3)}return num(a+b,`${a} + ${b} = ?`,2)};go("play");clearInterval(T);let q=g();
+const draw=()=>{$("#play").innerHTML=`<div class="card ctr"><h3>${m=="t"?"🪢 Tarik Tambang":"🏃 Balap Karung"}</h3>${m=="t"?`<div class="track"><b style="left:${Math.max(4,k)}%">🪢</b></div><small>Tarik ke kanan sampai 100%!</small>`:`<div class="track"><b style="left:${Math.max(4,p)}%">🧒</b></div><div class="track"><b style="left:${Math.max(4,k)}%">🐐</b></div>`}</div><div class="card ctr"><p class="q">${q.s}</p></div><div class="opts">${q.o.map(o=>`<button class="opt" onclick="pick(${o})">${o}</button>`).join("")}</div><div class="ctr"><button class="btn ghost" onclick="clearInterval(T);render('game')">Keluar</button></div>`};
+const end=w=>{clearInterval(T);if(w){S.coin+=10;S.xp+=20;sv()}post("game",{game:m=="t"?"Tarik Tambang":"Balap Karung",hasil:w?"Menang":"Kalah",koin:w?10:0,xp:w?20:0});sync();$("#play").innerHTML=`<div class="card ctr"><div style="font-size:60px">${w?"🏆":"🐐"}</div><h2>${w?"Kamu menang! +10 koin":"Si Kancil menang. Coba lagi!"}</h2><button class="btn" onclick="race('${m}',${mx0})">Main Lagi</button><button class="btn ghost" onclick="render('game')">Menu Game</button></div>`};
+window.pick=v=>{S.t++;if(v==q.a){S.c++;if(m=="t")k+=15;else p+=20}else if(m=="t")k-=10;sv();if(m=="t"?k>=100:p>=100)return end(1);if(m=="t"&&k<=0)return end(0);q=g();draw()};
+T=setInterval(()=>{if(m=="t"){k-=3;if(k<=0)return end(0)}else{k+=4;if(k>=100)return end(0)}draw()},1500+({A:0,B:400,C:800})[S.fase]);draw()}
+function ord(){go("play");let ns=[];while(ns.length<5){const v=({A:R(1,50),B:R(100,999),C:R(1000,99999)})[S.fase||"A"];if(!ns.includes(v))ns.push(v)}ns=sh(ns);const so=[...ns].sort((a,b)=>a-b);let st=0;
+const draw=()=>{$("#play").innerHTML=`<div class="card ctr"><h3>🎯 Susun Bilangan</h3><p>Ketuk dari yang terkecil ke terbesar (sentuh atau klik).</p><div>${ns.map(n=>`<button class="chip ${so.indexOf(n)<st?"used":""}" onclick="tp(this,${n})">${n}</button>`).join("")}</div><div class="err" id="oe"></div></div><div class="ctr"><button class="btn ghost" onclick="render('game')">Keluar</button></div>`};
+window.tp=(b,n)=>{if(n==so[st]){st++;S.coin+=1;sv();if(st==5){S.xp+=10;sv();post("game",{game:"Susun Bilangan",hasil:"Selesai",koin:5,xp:10});sync();$("#play").innerHTML=`<div class="card ctr"><div style="font-size:60px">🎉</div><h2>Urutan benar! +10 XP</h2><button class="btn" onclick="ord()">Main Lagi</button><button class="btn ghost" onclick="render('game')">Menu Game</button></div>`;return}draw()}else{b.classList.add("shake");$("#oe").textContent="Cari angka yang lebih kecil dulu."}};draw()}
+</script></body></html>
