@@ -49,6 +49,31 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 .track{position:relative;height:46px;background:var(--bl);border-radius:23px;margin:10px 0}.track b{position:absolute;top:2px;font-size:30px;transition:left .3s;transform:translateX(-50%)}
 .chip{display:inline-block;margin:5px;padding:12px 18px;background:var(--gold);color:#2b2200;border-radius:14px;font:800 22px "Baloo 2";border:0;cursor:pointer}.chip.used{opacity:.3}
 .shake{animation:sk .3s}@keyframes sk{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.vz{background:linear-gradient(180deg,#d9f1ff,#fff7e2);border-radius:16px;padding:8px;margin:8px 0;text-align:center;min-height:96px;overflow:hidden;color:#0F5132}
+.vz .it{display:inline-block;font-size:26px;margin:2px;animation:zp .5s var(--d,0s) cubic-bezier(.3,1.6,.5,1) both}
+.vz .fl{animation:zp .5s var(--d,0s) both,zf .9s 1.9s forwards}
+.vz .bn{animation:zp .5s var(--d,0s) both,zb .8s ease-in-out infinite alternate}
+.vz .cd{background:#fff;border:2px solid #0F5132;border-radius:8px;padding:2px 8px;font:800 18px "Baloo 2";width:auto}
+.vz .pl,.vz .lb{font:800 22px "Baloo 2";margin:0 6px}.vz .lb{margin-top:4px}
+.vz .kc{font-size:40px;animation:zb .7s ease-in-out infinite alternate}.vz .kc span{font:700 16px "Baloo 2"}
+.vz .gd{display:grid;grid-template-columns:repeat(10,1fr);gap:2px;width:150px;margin:auto}.vz .gd i{display:block;height:11px;background:#fff;border-radius:2px;animation:zp .3s var(--d) both}
+.vz .ch{display:inline-block;min-width:44px;margin:4px;padding:6px 10px;background:#fff;border:2px solid #0F5132;border-radius:12px;font:800 22px "Baloo 2";animation:zp .5s var(--d) both}.vz .ch.q{background:#D4AF37;animation:zp .5s var(--d) both,zb .6s var(--d) infinite alternate}
+.vz .tr{display:flex;gap:2px;margin:4px 0}.vz .tr span{flex:1;font-size:10px;background:#fff;border-radius:4px;padding:3px 0;animation:zp .3s var(--d) both}.vz .tr .on{color:#fff;font-weight:800}
+.vz .hb{background:#198754;color:#fff;border-radius:8px;margin:6px 0;padding:6px;font-weight:800;transform-origin:left;animation:zg 1s both}
+.vz .rc{margin:auto;background:#bfe8cf;border:3px solid #0F5132;border-radius:6px;display:flex;align-items:center;justify-content:center;font-weight:800;transform-origin:left top;animation:zg 1s both}
+.vz .pz{display:inline-block;margin:4px}
+.vz .br{position:relative}.vz .al{position:absolute;left:0;right:0;border-top:2px dashed #c0392b;font-size:11px;color:#c0392b;text-align:right}
+.vz .br{display:flex;gap:10px;align-items:flex-end;justify-content:center;height:100px}.vz .bb{width:28px;background:linear-gradient(#D4AF37,#198754);border-radius:6px 6px 0 0;transform-origin:bottom;animation:zv .8s var(--d) both}
+.vz .bm{display:flex;margin:6px 0;max-width:100%}.vz .sg{color:#fff;font-weight:800;padding:8px 0;border-radius:6px;transform-origin:left;animation:zg .8s both;overflow:hidden}.vz .g1{background:#198754}.vz .g2{background:#c0392b}.vz .g3{background:#f08a24}.vz .sg+.sg{animation-delay:.6s}
+@keyframes zp{from{transform:scale(0) rotate(-90deg);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes zf{to{transform:translateY(-70px) rotate(40deg);opacity:0}}
+@keyframes zb{to{transform:translateY(-8px)}}
+@keyframes zg{from{transform:scale(0,1)}to{transform:scale(1)}}
+@keyframes zv{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes zd{from{stroke-dashoffset:400}to{stroke-dashoffset:0}}
+@keyframes zs{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes zc{from{transform:rotate(var(--a))}to{transform:rotate(var(--b))}}
+@media(prefers-reduced-motion:reduce){.vz *{opacity:1!important;transform:none!important}.vz .fl{display:none}}
 #rep{display:none}
 @media print{body>*:not(#rep){display:none!important}#rep{display:block;padding:20px;color:#000;background:#fff}#rep table{width:100%;border-collapse:collapse}#rep td,#rep th{border:1px solid #000;padding:6px}}
 @media(min-width:700px){.opts{grid-template-columns:repeat(4,1fr)}}
@@ -205,8 +230,8 @@ const CAT=["Cinta Allah dan Rasul ☪️","Cinta sesama 🤝","Cinta alam 🌿",
 const MSG=["Berhitung dengan teliti dan jujur adalah syukur kepada Allah dan meneladani Rasul ☪️","Hitunganmu bermakna ketika dipakai untuk berbagi dan berlaku adil pada sesama 🤝","Mengukur dan menghitung membantu kita merawat danau, laut, dan hutan 🌿","Menguasai matematika adalah cara bangga dan mengabdi untuk Indonesia 🇮🇩"];
 const KB=[2,1,1,3,1,2,2,2,2,3,0,2,2,3,0,1,3,3,1];
 function vary(q){if(q.tag)return q;const r=Math.random();
-if(r<.3&&q.o.length>=2){const ok=Math.random()<.5,w=ok?q.a:q.o.find(x=>x!=q.a);return{tag:"🔎 Cambridge: Kritisi jawaban",s:`${q.s} Budi menjawab ${w}. Apakah jawaban Budi benar?`,a:ok?"Benar":"Salah",ex:"jawaban tepat: "+q.a,o:["Benar","Salah"]}}
-if(r<.5&&typeof q.a=="number"){const t=q.a+(Math.random()<.5?-1:1)*R(1,3);return{tag:"📐 Cambridge: Perkiraan masuk akal",s:`${q.s} Tanpa menghitung rumit, apakah jawabannya lebih dari ${t}?`,a:q.a>t?"Ya":"Tidak",ex:"jawaban tepat: "+q.a,o:["Ya","Tidak"]}}
+if(r<.3&&q.o.length>=2){const ok=Math.random()<.5,w=ok?q.a:q.o.find(x=>x!=q.a);return{v:q.s,oa:q.a,tag:"🔎 Cambridge: Kritisi jawaban",s:`${q.s} Budi menjawab ${w}. Apakah jawaban Budi benar?`,a:ok?"Benar":"Salah",ex:"jawaban tepat: "+q.a,o:["Benar","Salah"]}}
+if(r<.5&&typeof q.a=="number"){const t=q.a+(Math.random()<.5?-1:1)*R(1,3);return{v:q.s,oa:q.a,tag:"📐 Cambridge: Perkiraan masuk akal",s:`${q.s} Tanpa menghitung rumit, apakah jawabannya lebih dari ${t}?`,a:q.a>t?"Ya":"Tidak",ex:"jawaban tepat: "+q.a,o:["Ya","Tidak"]}}
 q.tag="💡 Pembelajaran mendalam: cerita bermakna";return q}
 function refl(){const c=KB[Q.i];go("play");$("#play").innerHTML=`<div class="card"><small>🌱 Refleksi · bermakna, berkesadaran, menggembirakan</small><p class="q">Ingat cerita-cerita di pelabuhan ${G[Q.i][0]} (${G[Q.i][2]}). Nilai cinta apa yang paling kamu rasakan?</p></div><div class="opts">${CAT.map((x,j)=>`<button class="opt" onclick="rfa(${j})">${x}</button>`).join("")}</div>`}
 function rfa(j){const c=KB[Q.i];S.xp+=j==c?8:3;sv();post("refleksi",{pelabuhan:G[Q.i][0],pilihan:CAT[j],sesuai:j==c?"Ya":"Tidak"});sync();$("#play").innerHTML=`<div class="card ctr"><h3>${j==c?"Tepat! 💚":"Cinta punya banyak wajah 💚"}</h3><p>Yang paling dekat: <b>${CAT[c]}</b></p><p>${MSG[c]}</p><button class="btn" onclick="fin()">Lihat Hasil</button></div>`}
@@ -225,6 +250,57 @@ const ayat=()=>{const a=AY[S.fase]||AY.A;return `<div class="card"><small>📖 A
 const pl=i=>{const p=lst(S.fase).indexOf(i);return p<2?0:p<4?1:2};
 const lv=()=>Math.min(3,pl(Q.i)+(Q.n>=3?1:0));
 const gl=()=>{const l=lst(S.fase).filter(i=>i!=16),c=l.filter(i=>S.st[i]).length,L=c<2?0:c<4?1:2;return Math.min(3,L+((Q&&Q.n>=3)?1:0))};
+let VZ="";
+const ico=t=>/ikan|nila|lele|nelayan/i.test(t)?"🐟":/perahu/i.test(t)?"🛶":/jagung|tongkol/i.test(t)?"🌽":/semangka/i.test(t)?"🍉":/kelereng/i.test(t)?"🔴":/biji/i.test(t)?"🥥":/bibit|mangrove/i.test(t)?"🌱":/kue|tumpeng|binte/i.test(t)?"🍚":"⭐";
+const zi=(k,e,d0,c)=>{let h="";k=Math.max(0,Math.min(k,24));for(let i=0;i<k;i++)h+=`<span class="it ${c||""}" style="--d:${(d0+i*.1).toFixed(2)}s">${e}</span>`;return h};
+let ANS=null;const lb=x=>`<div class="lb">${ANS!=null&&/\?$/.test(x)?x.replace(/\?$/,ANS):x}</div>`,masc=()=>'<div class="kc">🐐 <span>Ayo perhatikan soalnya!</span></div>';
+const grid=p=>{let h='<div class="gd">';for(let i=0;i<100;i++)h+=`<i style="--d:${(i*.015).toFixed(2)}s;${i<p?"background:#D4AF37":""}"></i>`;return h+`</div>${lb(p+"%")}`};
+const clock=t=>{const m=[...t.matchAll(/pukul (\d+)/g)].map(x=>+x[1]),l=t.match(/berlangsung (\d+) jam/),a=m[0]||3,b=m[1]||a+(l?+l[1]:2);let s='<svg viewBox="0 0 120 120" width="120" height="120"><circle cx="60" cy="60" r="55" fill="#fff" stroke="#0F5132" stroke-width="4"/>';for(let i=1;i<=12;i++){const q=i*Math.PI/6;s+=`<text x="${(60+42*Math.sin(q)).toFixed(0)}" y="${(64-42*Math.cos(q)).toFixed(0)}" font-size="11" text-anchor="middle" fill="#0F5132">${i}</text>`}return s+`<line x1="60" y1="60" x2="60" y2="30" stroke="#c0392b" stroke-width="5" stroke-linecap="round" style="--a:${a*30}deg;--b:${b*30}deg;transform-origin:60px 60px;animation:zc 3s ease-in-out infinite alternate"/><circle cx="60" cy="60" r="4"/></svg>`};
+const tally=t=>{let h="";[...t.matchAll(/[卌|🐟]/gu)].forEach((x,i)=>h+=`<span class="it" style="--d:${(i*.15).toFixed(2)}s;font-size:${x[0]=="🐟"?26:34}px">${x[0]}</span>`);return h||masc()};
+const seq=t=>{const n=(t.split("…")[0].split(":").pop().match(/\d+/g)||[]);let h=n.map((v,i)=>`<span class="ch" style="--d:${i*.35}s">${v}</span>`).join("");return h+`<span class="ch q" style="--d:${n.length*.35}s">${ANS!=null?ANS:"?"}</span>`};
+const pairs=n=>{n=Math.min(n,24);if(!n)return masc();let h="";for(let i=0;i<n;i+=2)h+=`<span class="it" style="--d:${(i*.06).toFixed(2)}s">${i+1<n?"🔵🔵":"🔵"}</span>`;return h};
+const tl=(p,q)=>{const row=(k,c)=>{let h='<div class="tr">';for(let i=1;i<=24;i++)h+=`<span class="${i%k==0?"on":""}" style="--d:${(i*.05).toFixed(2)}s;${i%k==0?"background:"+c:""}">${i}</span>`;return h+"</div>"};return row(p,"#198754")+row(q,"#f08a24")};
+const hbar=(a,b)=>{const m=Math.max(a,b);return `<div class="hb" style="width:${a/m*100}%">${a} m</div><div class="hb" style="width:${b/m*100}%;background:#f08a24">${b} m</div>`};
+const pie=(n,d,tx)=>{d=Math.max(2,Math.min(d,12));n=Math.min(n,d);let s='<svg viewBox="0 0 120 120" width="100" height="100">';for(let i=0;i<d;i++){const a=i*2*Math.PI/d-Math.PI/2,b=(i+1)*2*Math.PI/d-Math.PI/2;s+=`<path d="M60 60L${(60+52*Math.cos(a)).toFixed(1)} ${(60+52*Math.sin(a)).toFixed(1)}A52 52 0 0 1 ${(60+52*Math.cos(b)).toFixed(1)} ${(60+52*Math.sin(b)).toFixed(1)}Z" fill="${i<n?"#D4AF37":"#e8f5ee"}" stroke="#0F5132" stroke-width="2" style="animation:zs .5s ${(i*.15).toFixed(2)}s both;transform-origin:60px 60px"/>`}return `<span class="pz">${s}</svg>${tx?"<br><b>"+tx+"</b>":""}</span>`};
+const pies=(t,n)=>{const f=[...t.matchAll(/(\d+)\/(\d+)/g)].slice(0,3);if(f.length)return f.map(x=>pie(+x[1],+x[2],x[0])).join("");return n.length>1?pie(n[1],n[0]):masc()};
+const rect=t=>{const kk=t.match(/Keliling .*adalah (\d+) m/),lu=t.match(/(\d+) m² dan lebarnya (\d+) m/);if(kk)return `<div class="rc" style="width:110px;height:110px">keliling ${kk[1]} m</div>${lb("panjang satu sisi = ?")}`;if(lu)return `<div class="rc" style="width:150px;height:${30+50*lu[2]/10}px">luas ${lu[1]} m²</div>${lb("lebar "+lu[2]+" m, panjang = ?")}`;const m=t.match(/(\d+)\D{1,12}×\s*(\d+)/),s=t.match(/sisi (\d+)/),a=m?+m[1]:s?+s[1]:0,b=m?+m[2]:a;if(!a)return null;const k=Math.max(a,b);return `<div class="rc" style="width:${40+110*a/k}px;height:${30+60*b/k}px">${a} m × ${b} m</div>`};
+const poly=t=>{const w={segitiga:3,persegi:4,segilima:5,segienam:6,segitujuh:7,segidelapan:8};let k=+((t.match(/segi-(\d+)/)||[])[1]||0);if(!k)for(const x in w)if(t.indexOf(x)>=0)k=w[x];if(!k){const q=t.match(/punya (\d+) sisi/);if(q)k=+q[1]}if(/tidak punya sudut/.test(t))return '<svg viewBox="0 0 120 120" width="110" height="110"><circle cx="60" cy="60" r="48" fill="#e8f5ee" stroke="#0F5132" stroke-width="4" stroke-dasharray="400" style="animation:zd 1.6s both"/></svg>';if(!k)return null;let p="",d="";for(let i=0;i<k;i++){const a=i*2*Math.PI/k-Math.PI/2,x=(60+48*Math.cos(a)).toFixed(1),y=(60+48*Math.sin(a)).toFixed(1);p+=x+","+y+" ";d+=`<circle cx="${x}" cy="${y}" r="5" fill="#D4AF37" style="animation:zs .4s ${(i*.2+1).toFixed(1)}s both;transform-origin:${x}px ${y}px"/>`}return `<svg viewBox="0 0 120 120" width="110" height="110"><polygon points="${p}" fill="#e8f5ee" stroke="#0F5132" stroke-width="4" stroke-dasharray="400" style="animation:zd 1.6s both"/>${d}</svg>`};
+const marb=t=>{const m=t.match(/(\d+) kelereng merah dan (\d+) biru/);return m?'<div style="font-size:34px">👝</div>'+zi(+m[1],"🔴",0,"bn")+zi(+m[2],"🔵",.5,"bn"):null};
+const cards=()=>{let h="";for(let i=1;i<=12;i++)h+=`<span class="it cd" style="--d:${(i*.1).toFixed(1)}s">${i}</span>`;return h};
+const bars=a=>{const m=Math.max(...a,1);return '<div class="br">'+a.map((v,i)=>`<div><div class="bb" style="height:${Math.max(6,v/m*70)}px;--d:${i*.2}s"></div><small>${v}</small></div>`).join("")+"</div>"};
+const grp=(a,b,e)=>{a=Math.min(a,8);let h="";for(let i=0;i<a;i++)h+=`<div>${zi(b,e,i*.4)}</div>`;return h};
+const vsub=(n,e)=>{const T=Math.max(...n),i=n.indexOf(T),r=n.filter((v,j)=>j!=i).slice(0,2);if(r.length==1&&T<=24)return zi(T-r[0],e,0)+zi(r[0],e,T*.08,"fl")+lb(T+" − "+r[0]+" = ?");return `<div class="bm"><div class="sg g1" style="width:100%">${T}</div></div><div class="bm">${r.map(v=>`<div class="sg g2" style="width:${v/T*100}%">${v}</div>`).join("")}</div>${lb("sisanya = ?")}`};
+const vadd=(n,e)=>n[0]+n[1]<=24?zi(n[0],e,0)+'<span class="pl">+</span>'+zi(n[1],e,n[0]*.1+.4)+lb(n[0]+" + "+n[1]+" = ?"):`<div class="bm"><div class="sg g1" style="flex:${n[0]}">${n[0]}</div><div class="sg g3" style="flex:${n[1]}">${n[1]}</div></div>${lb(n[0]+" + "+n[1]+" = ?")}`;
+const neraca=t=>{const m=t.match(/Tomat (\d+) kg, cabai (\d+) (kg|gram)/);if(!m)return masc();const a=+m[1]*1000,b=m[3]=="gram"?+m[2]:+m[2]*1000,r=a>b?-12:a<b?12:0,pan=x=>`<path d="M${x-15} 62h30a15 12 0 0 1-30 0z" fill="#fff" stroke="#0F5132" stroke-width="2"/>`;
+return `<svg viewBox="0 0 160 120" width="200" height="150"><line x1="80" y1="30" x2="80" y2="100" stroke="#0F5132" stroke-width="5"/><rect x="55" y="100" width="50" height="8" rx="4" fill="#0F5132"/><g style="--a:0deg;--b:${r}deg;transform-origin:80px 30px;animation:zc 1.6s .3s ease-in-out both"><line x1="20" y1="30" x2="140" y2="30" stroke="#D4AF37" stroke-width="5" stroke-linecap="round"/><line x1="20" y1="30" x2="20" y2="62" stroke="#0F5132" stroke-width="2"/><line x1="140" y1="30" x2="140" y2="62" stroke="#0F5132" stroke-width="2"/>${pan(20)}${pan(140)}<text x="20" y="58" font-size="22" text-anchor="middle">🍅</text><text x="140" y="58" font-size="22" text-anchor="middle">🌶️</text></g></svg>${lb("Tomat "+m[1]+" kg  vs  cabai "+m[2]+" "+m[3])}`};
+const uang=n=>{const b=n[0],x=n[1],y=n[2],mx=Math.max(b,x+y);return `<div class="hb" style="width:${b/mx*100}%;background:#D4AF37;color:#2b2200">Uang Rp${b}</div><div class="bm" style="width:${(x+y)/mx*100}%"><div class="sg g1" style="flex:${x}">Rp${x}</div><div class="sg g3" style="flex:${y}">Rp${y}</div></div>${lb(x+y<=b?"Total Rp"+(x+y)+" ≤ Rp"+b+": cukup":"Total Rp"+(x+y)+" melebihi uang: tidak cukup")}`};
+const avg=n=>{const m=n[1],a=n[2],b=n[3],c=3*m-a-b,mx=Math.max(m,a,b,c,1),H=v=>Math.max(6,v/mx*70);return `<div class="br">${[[a,0],[b,1],[c,2]].map(([v,i])=>`<div><div class="bb" style="height:${H(v)}px;--d:${i*.3}s;${i==2?"background:#D4AF37":""}"></div><small>${i==2?(ANS!=null?ANS:"?"):v}</small></div>`).join("")}<div class="al" style="bottom:${(H(m)+17).toFixed(0)}px">rata-rata ${m}</div></div>`};
+function viz(t){const n=(t.match(/\d+/g)||[]).map(Number),e=ico(t),T=x=>x.test(t);let h=null;
+if(T(/%/))h=grid(+t.match(/(\d+)%/)[1]);
+else if(T(/pukul/))h=clock(t);
+else if(T(/Piktogram|Turus/))h=tally(t);
+else if(T(/Pola|kelipatan \d+:|berikutnya/))h=seq(t);
+else if(T(/Cukupkah/)&&n.length>2)h=uang(n);
+else if(T(/Tomat \d+ kg, cabai \d+/))h=neraca(t);
+else if(T(/Rata-rata tangkapan/)&&n.length>3)h=avg(n);
+else if(T(/ganjil atau genap/))h=pairs(n[0]);
+else if(T(/tiap \d+ (hari|detik)/)&&n.length>1)h=tl(n[0],n[1]);
+else if(T(/dipotong sama panjang/)&&n.length>1)h=hbar(n[0],n[1]);
+else if(T(/\d+\/\d+|bagian sama/))h=pies(t,n);
+else if(T(/Tali sepanjang \d+ cm/))h=`<div class="hb" style="width:100%">${n[0]} cm</div>${lb("1 m = 100 cm")}`;
+else if(T(/keliling|luas|kebun|kolam/i)&&(h=rect(t))){}
+else if(T(/segi|sisi|punya sudut/)&&(h=poly(t))){}
+else if(T(/kelereng merah dan/)&&(h=marb(t))){}
+else if(T(/🔴|🔵/)){h="";[...t.matchAll(/[🔴🔵]/gu)].forEach((x,i)=>h+=`<span class="it bn" style="--d:${(i*.1).toFixed(1)}s;font-size:30px">${x[0]}</span>`)}
+else if(T(/Kartu bernomor/))h=cards();
+else if(T(/rata-rata|Data ikan|Tomat \d+ kg, cabai \d+ kg/)&&!T(/gram/)&&n.length>1)h=bars(n.slice(0,5));
+else if(T(/×|Tiap|masing-masing/)&&n.length>1&&!T(/Rp/))h=grp(n[0],n[1],e);
+else if(T(/dibagi rata/)&&n.length>1)h=zi(n[0],e,0)+lb(n[0]+" ÷ "+n[1]+" = ?");
+else if(T(/dibagikan|Sisa|sisa|kembalian|selisih|dikurangi|memanjat|lagi sampai|sehingga|menjadi|Setelah|masih punya/)&&n.length>1)h=vsub(n,e);
+else if(T(/menangkap|menjual|Lubang kiri|disambung|semua|dikumpulkan|total/)&&n.length>1)h=vadd(n,e);
+h=h||masc();VZ=h;
+return `<div class="vz" id="vz">${h}</div><div class="ctr"><button class="btn ghost" style="padding:2px 12px;font-size:13px" onclick="rv()">▶ Putar ulang animasi</button></div>`}
+function rv(){const z=$("#vz");z.innerHTML="";setTimeout(()=>{z.innerHTML=VZ},40)}
 const LOVEOLD=["Berbagi dengan tetangga = cinta sesama 🤝","Menjaga danau dan laut = cinta alam 🌿","Bangga jadi anak Gorontalo = cinta tanah air 🇮🇩","Belajar dengan niat baik = cinta kepada Allah dan Rasul ☪️"];
 const lvl=()=>Math.floor(S.xp/100)+1,tt=()=>["Pelaut Cilik","Kapten Muda","Juara Hitung","Navigator","Laksamana"][Math.min(4,Math.floor(lvl()/3))];
 setTimeout(()=>{if(S.n){S.fase?render("home"):pickF()}else go("cover")},1800);
@@ -261,7 +337,7 @@ let Q;function quiz(i){Q={i,n:0,ok:0};nq()}
 function mini(j){Q={i:0,n:0,ok:0,gen:GM[j][3],g:j};nq()}
 function nq(){const q=vary(!Q.gen&&Math.random()<.4?CB[Q.i]():(Q.gen||G[Q.i][4])());Q.q=q;go("play");$("#play").innerHTML=`<div class="bar"><i style="width:${Q.n*20}%"></i></div><div class="card"><small>Soal ${Q.n+1} dari 5 · ${q.tag}${" · 🔥 "+["Mudah","Sedang","Menantang","Sangat menantang"][Q.gen?gl():lv()]}</small><p class="q">${q.s} <button class="btn ghost" onclick="say(Q.q.s)" aria-label="Dengarkan">🔊</button></p></div><div class="opts">${q.o.map(o=>`<button class="opt" onclick="ans(this,'${o}')">${o}</button>`).join("")}</div><div id="fb" class="card" style="display:none"></div>`}
 function ans(b,v){const q=Q.q,r=v==q.a;document.querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent==q.a)x.classList.add("ok")});if(!r)b.classList.add("no");S.t++;if(r){S.c++;Q.ok++;S.coin+=2;S.xp+=10}sv();
-const f=$("#fb");f.style.display="block";f.innerHTML=`<b>${r?"Benar! 🎉":"Belum tepat. Jawabannya "+q.a+(q.ex?" ("+q.ex+")":"")}</b><br>${MSG[Q.gen?R(0,3):KB[Q.i]]}<br><button class="btn" onclick="Q.n++;Q.n<5?nq():fin()">${Q.n<4?"Lanjut":"Lihat Hasil"}</button>`}
+const f=$("#fb");ANS=Q.q.oa!==undefined?Q.q.oa:Q.q.a;f.style.display="block";f.innerHTML=`<small>🎬 Animasi pembahasan</small>${viz(q.v||q.s)}<b>${r?"Benar! 🎉":"Belum tepat. Jawabannya "+q.a+(q.ex?" ("+q.ex+")":"")}</b><br>${MSG[Q.gen?R(0,3):KB[Q.i]]}<br><button class="btn" onclick="Q.n++;Q.n<5?nq():fin()">${Q.n<4?"Lanjut":"Lihat Hasil"}</button>`}
 function fin(){if(!Q.gen&&!Q.rf){Q.rf=1;return refl()}if(Q.gen){S.coin+=Q.ok*2;S.xp+=Q.ok*5;sv();post("game",{game:GM[Q.g][0],hasil:Q.ok+"/5",koin:Q.ok*2,xp:Q.ok*5});sync();$("#play").innerHTML=`<div class="card ctr"><div style="font-size:60px">${GM[Q.g][1]}</div><h2>${Q.ok}/5 benar</h2><p>+${Q.ok*2} koin, +${Q.ok*5} XP</p><button class="btn" onclick="mini(${Q.g})">Main Lagi</button><button class="btn gold" onclick="render('game')">Menu Game</button></div>`;return}const s=Q.ok>=5?3:Q.ok>=4?2:Q.ok>=3?1:0;if(s>(S.st[sk(Q.i)]||0))S.st[sk(Q.i)]=s;S.xp+=s*10;sv();post("kuis",{pelabuhan:G[Q.i][0],topik:G[Q.i][2],tingkat:["Mudah","Sedang","Menantang"][pl(Q.i)],benar:Q.ok,total:5,bintang:s});sync();const nu=s>0&&Q.i!=16;
 $("#play").innerHTML=`<div class="card ctr"><div style="font-size:60px">${s?"🏆":"💪"}</div><h2>${Q.ok}/5 benar</h2><p>${"⭐".repeat(s)||"Coba lagi, ya!"}</p><p>${s?(nu?"Pelabuhan berikutnya terbuka! ⚓":"Kamu menaklukkan semua pelabuhan! 🇮🇩"):"Butuh 3 jawaban benar untuk membuka pelabuhan berikutnya."}</p><button class="btn" onclick="quiz(${Q.i})">Ulangi</button><button class="btn gold" onclick="render('peta')">Ke Peta</button></div>`}
 let T;function race(m,mx){const mx0=mx;mx*=({A:1,B:3,C:6})[S.fase]||1;let p=0,k=m=="t"?50:0;const g=()=>{const e=1+Math.floor((m=="t"?k:p)/40)*.3,a=R(1,Math.round(mx*e)),b=R(1,Math.round(mx*e));if(S.fase=="B"&&Math.random()<.5){const x=R(2,9),y=R(2,9);return num(x*y,`${x} × ${y} = ?`,2)}if(S.fase=="C"){const x=R(2,12),y=R(2,12);return Math.random()<.5?num(x*y,`${x} × ${y} = ?`,3):num(a+b,`${a} + ${b} = ?`,3)}return num(a+b,`${a} + ${b} = ?`,2)};go("play");clearInterval(T);let q=g();
