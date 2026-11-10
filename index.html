@@ -106,7 +106,7 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 <script>
 // ============ PENGATURAN DATABASE (GOOGLE SHEETS via GOOGLE APPS SCRIPT) ============
 // Ganti teks di bawah dengan URL Web App GAS Anda (berakhiran /exec).
-const GAS_URL = "URL_GAS_ANDA_DISINI";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxMPVq6BrNGvUxeHcu1h_uZdiUbZxU-8Vq4E91CFTTFFX5AYJVuPD--dotAdyU_EV8/exec";
 // ========================================================================================
 const GAS_ON=()=>typeof GAS_URL==="string"&&GAS_URL.indexOf("https://script.google.com/")===0;
 const esc=x=>String(x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
