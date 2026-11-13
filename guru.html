@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dashboard Guru – El Math</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--g:#0F5132;--g2:#198754;--gold:#D4AF37;--bg:#fff7e2;--card:#fff;--tx:#1d2b24;--mut:#5b6b63;--bl:#e8f5ee;--bad:#c0392b;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0d1f17;--card:#16302a;--tx:#f2f0e4;--mut:#a9c0b4;--bl:#1d3d33;color-scheme:dark}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 "Baloo 2",system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+h1,h2,h3{margin:.2em 0}.card{background:var(--card);border-radius:18px;padding:14px;margin:12px 0;box-shadow:0 2px 10px #0002}
+.hdr{background:linear-gradient(90deg,var(--g),var(--g2));color:#fff;border-radius:18px;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:12px;padding:10px 18px;font:800 15px "Baloo 2";background:var(--g);color:#fff;cursor:pointer;margin:2px}.btn.gold{background:var(--gold);color:#2b2200}.btn.ghost{background:var(--bl);color:var(--g2)}
+input,select{padding:10px;border-radius:10px;border:2px solid var(--g2);font:600 15px "Baloo 2";background:var(--card);color:var(--tx)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}.kpi{background:var(--bl);border-radius:14px;padding:10px;text-align:center}.kpi b{font-size:28px;display:block;color:var(--g2)}
+.err{color:var(--bad);font-weight:800;min-height:1.4em}.mut{color:var(--mut)}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:640px}th,td{padding:7px 8px;border-bottom:1px solid var(--bl);text-align:left;white-space:nowrap}th{cursor:pointer;color:var(--g2);position:sticky;top:0;background:var(--card)}
+.bar{height:16px;background:var(--bl);border-radius:8px;overflow:hidden;flex:1}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--g2),var(--gold))}.bar i.low{background:var(--bad)}
+.row{display:flex;align-items:center;gap:8px;margin:6px 0}.row span{width:170px;flex:none;font-size:14px}.row em{width:70px;flex:none;text-align:right;font-style:normal;font-weight:800}
+.tag{display:inline-block;border-radius:99px;padding:0 10px;font-size:13px;font-weight:800}.tag.r{background:#fadbd8;color:#922b21}.tag.y{background:#fcf3cf;color:#7d6608}
+#login{max-width:420px;margin:60px auto;text-align:center}
+</style></head><body><div class="wrap">
+
+<div id="login" class="card">
+  <h1>🧑‍🏫 Dashboard Guru</h1><p class="mut">El Math · MAN 1 Boalemo</p>
+  <p><input id="pin" type="password" placeholder="PIN guru" autocomplete="current-password" style="width:100%"></p>
+  <div class="err" id="le"></div>
+  <button class="btn" onclick="masuk()">Masuk</button>
+</div>
+
+<div id="dash" hidden>
+  <div class="hdr"><div><h2>📊 Dashboard Guru El Math</h2><small id="stamp"></small></div>
+    <div><button class="btn gold" onclick="muat()">🔄 Muat ulang</button><button class="btn ghost" onclick="keluar()">Keluar</button></div></div>
+  <div class="card"><label>Kelas <select id="fk" onchange="tampil()"></select></label>
+    <label> Cari nama <input id="fq" oninput="tampil()" placeholder="ketik nama…"></label>
+    <button class="btn ghost" onclick="csv()">⬇️ Ekspor CSV</button></div>
+  <div id="out"></div>
+</div>
+</div>
+
+<script>
+// ============ PENGATURAN: samakan dengan GAS_URL di index.html ============
+const GAS_URL = "URL_GAS_ANDA_DISINI";
+// ==========================================================================
+const $=s=>document.querySelector(s);
+const esc=x=>String(x==null?"":x).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c]));
+let DATA=null,PIN="",SORT={k:"xp",d:-1};
+
+async function masuk(){PIN=$("#pin").value;$("#le").textContent="";
+  if(GAS_URL.indexOf("https://script.google.com/")!==0){$("#le").textContent="Isi dulu GAS_URL di bagian atas guru.html.";return}
+  if(!PIN){$("#le").textContent="Masukkan PIN.";return}
+  try{await muat();$("#login").hidden=true;$("#dash").hidden=false}catch(e){$("#le").textContent=e.message}}
+async function muat(){const r=await fetch(GAS_URL,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({action:"report",data:{pin:PIN}})});
+  const j=await r.json();if(!j.ok)throw new Error(j.error||"Gagal memuat data");DATA=j;
+  $("#stamp").textContent="Diperbarui: "+new Date(j.dibuat).toLocaleString("id-ID");
+  const ks=[...new Set(j.siswa.map(s=>s.kelas))].sort();
+  $("#fk").innerHTML='<option value="">Semua kelas</option>'+ks.map(k=>`<option>${esc(k)}</option>`).join("");tampil()}
+function keluar(){DATA=null;PIN="";$("#pin").value="";$("#dash").hidden=true;$("#login").hidden=false}
+
+const hari=t=>{const d=(Date.now()-new Date(t).getTime())/864e5;return isNaN(d)?999:Math.floor(d)};
+const lalu=t=>{const d=hari(t);return d>900?"-":d<1?"hari ini":d+" hari lalu"};
+function saring(){const k=$("#fk")?$("#fk").value:"",q=($("#fq")?$("#fq").value:"").toLowerCase();
+  return DATA.siswa.filter(s=>(!k||s.kelas===k)&&(!q||String(s.nama).toLowerCase().includes(q)))}
+function urut(a){const {k,d}=SORT;return a.slice().sort((x,y)=>{const u=x[k],v=y[k];return (typeof u=="string"?u.localeCompare(v):u-v)*d})}
+function setSort(k){SORT=SORT.k==k?{k,d:-SORT.d}:{k,d:-1};tampil()}
+
+function view(D,S){
+  const n=S.length,akt=S.filter(s=>hari(s.terakhir)<=7).length,ak=n?Math.round(S.reduce((a,s)=>a+(+s.akurasi||0),0)/n):0;
+  const perlu=S.filter(s=>hari(s.terakhir)>7||(+s.akurasi<60));
+  const tp=D.topik.slice().sort((a,b)=>a.akurasi-b.akurasi);
+  const mxg=Math.max(1,...D.game.map(g=>g.main));
+  const th=(k,t)=>`<th onclick="setSort('${k}')">${t}${SORT.k==k?(SORT.d<0?" ▼":" ▲"):""}</th>`;
+  return `<div class="grid">
+   <div class="kpi"><b>${n}</b>Siswa</div><div class="kpi"><b>${akt}</b>Aktif 7 hari terakhir</div>
+   <div class="kpi"><b>${ak}%</b>Rata-rata akurasi</div><div class="kpi"><b>${D.total_kuis}</b>Kuis dikerjakan (semua siswa)</div></div>
+  <div class="card"><h3>⚠️ Perlu perhatian (${perlu.length})</h3>${perlu.length?perlu.map(s=>`<div>${esc(s.nama)} (${esc(s.kelas)}) ${hari(s.terakhir)>7?'<span class="tag y">tidak aktif '+(hari(s.terakhir)>900?"":hari(s.terakhir)+" hari")+'</span>':""} ${+s.akurasi<60?'<span class="tag r">akurasi '+esc(s.akurasi)+'%</span>':""}</div>`).join(""):'<span class="mut">Tidak ada. Semua siswa aktif dan akurasinya baik 🎉</span>'}</div>
+  <div class="card"><h3>📚 Akurasi per pelabuhan (terlemah di atas)</h3>${tp.length?tp.map(t=>`<div class="row"><span>${esc(t.pelabuhan)}<br><small class="mut">${esc(t.topik)}</small></span><div class="bar"><i class="${t.akurasi<60?"low":""}" style="width:${t.akurasi}%"></i></div><em>${t.akurasi}%</em><small class="mut">${t.percobaan}×</small></div>`).join("")+'<small class="mut">Merah = di bawah 60%: pertimbangkan remedial pada topik ini.</small>':'<span class="mut">Belum ada data kuis.</span>'}</div>
+  <div class="card"><h3>👥 Daftar siswa</h3><div class="tw"><table><thead><tr>${th("nama","Nama")}${th("kelas","Kelas")}${th("fase","Fase")}${th("level","Level")}${th("xp","XP")}${th("akurasi","Akurasi")}${th("bintang","⭐")}${th("streak","🔥")}${th("terakhir","Terakhir aktif")}</tr></thead><tbody>${urut(S).map(s=>`<tr><td>${esc(s.nama)}</td><td>${esc(s.kelas)}</td><td>${esc(s.fase)}</td><td>${esc(s.level)}</td><td>${esc(s.xp)}</td><td>${esc(s.akurasi)}%</td><td>${esc(s.bintang)}</td><td>${esc(s.streak)}</td><td>${lalu(s.terakhir)}</td></tr>`).join("")}</tbody></table></div></div>
+  <div class="grid"><div class="card"><h3>🎮 Game paling sering dimainkan</h3>${D.game.length?D.game.slice().sort((a,b)=>b.main-a.main).map(g=>`<div class="row"><span>${esc(g.game)}</span><div class="bar"><i style="width:${g.main/mxg*100}%"></i></div><em>${g.main}×</em></div>`).join(""):'<span class="mut">Belum ada data.</span>'}</div>
+  <div class="card"><h3>💚 Refleksi nilai KBC</h3>${D.refleksi.length?D.refleksi.map(r=>`<div class="row"><span>${esc(r.nilai)}</span><div class="bar"><i style="width:${r.jumlah?r.sesuai/r.jumlah*100:0}%"></i></div><em>${r.jumlah}×</em></div>`).join("")+'<small class="mut">Bilah = persentase pilihan yang sesuai dengan tema pelabuhan.</small>':'<span class="mut">Belum ada data.</span>'}</div></div>`}
+function tampil(){if(DATA)$("#out").innerHTML=view(DATA,saring())}
+function csv(){if(!DATA)return;const H=["Nama","Kelas","Fase","Level","XP","Koin","Streak","Akurasi","Bintang","Terakhir Aktif"];
+  const c=v=>{v=String(v==null?"":v);if(/^[=+\-@]/.test(v))v="'"+v;return '"'+v.replace(/"/g,'""')+'"'};
+  const rows=[H.map(c).join(",")].concat(urut(saring()).map(s=>[s.nama,s.kelas,s.fase,s.level,s.xp,s.koin,s.streak,s.akurasi,s.bintang,s.terakhir].map(c).join(",")));
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+rows.join("\n")],{type:"text/csv;charset=utf-8"}));a.download="elmath-siswa.csv";a.click()}
+document.addEventListener("keydown",e=>{if(e.key==="Enter"&&!$("#login").hidden)masuk()});
+</script></body></html>
