@@ -131,6 +131,10 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 @keyframes bl{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}@keyframes kj{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(-6deg)}}
 @keyframes tr{0%{transform:translateY(0);opacity:1}100%{transform:translateY(14px);opacity:0}}@keyframes sp{to{transform:scale(1.5) rotate(20deg)}}
 .vz .rope{height:30px;border-radius:15px;background:repeating-linear-gradient(115deg,#b8860b 0 6px,#8a6a1d 6px 12px);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:6px 0;transform-origin:left;animation:zg 1s both;text-shadow:0 1px 2px #0008}.vz .rope.r2{background:repeating-linear-gradient(115deg,#7a5230 0 6px,#a87b4f 6px 12px)}.vz .rrow{display:flex;align-items:center;margin:6px 0}.vz .rrow .rope{margin:0}.vz .knot{font-size:28px;margin:0 -8px;z-index:1;animation:zp .5s 1s both}
+.ft{background:#0a3324;color:#d7e6dd;text-align:center;font:600 13px/1.6 "Baloo 2",sans-serif;padding:16px 12px 92px;margin-top:18px;border-radius:20px 20px 0 0}
+.ft .t{display:block;font-size:14px;font-weight:800;color:#fff}.ft .dv{margin:3px 0}.ft .ic{color:#D4AF37;font:800 13px ui-monospace,Menlo,Consolas,monospace;margin-right:2px}.ft .nm{color:#fff;font-weight:800}
+.ft code{background:#06241a;color:#4ade80;border-radius:6px;padding:1px 8px;font:700 13px ui-monospace,Menlo,Consolas,monospace}.ft .cp{color:#9db3a7;font-size:12px}
+.ft.cov{background:transparent;padding:14px 0 6px;margin-top:10px;border-radius:0}
 #rep{display:none}
 @media print{body>*:not(#rep){display:none!important}#rep{display:block;padding:20px;color:#000;background:#fff}#rep table{width:100%;border-collapse:collapse}#rep td,#rep th{border:1px solid #000;padding:6px}}
 @media(min-width:700px){.opts{grid-template-columns:repeat(4,1fr)}}
@@ -153,6 +157,7 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 <button class="btn ghost" onclick="op('mDev')">Informasi Pengembang</button>
 <button class="btn ghost" onclick="op('mTuj')">Tujuan Pembelajaran</button><br>
 <button class="btn gold" style="font-size:22px;padding:14px 50px" onclick="go('form')">MULAI</button>
+<footer class="ft cov"><b class="t">El Math - MAN 1 Boalemo Tahun 2026</b><div class="dv"><span class="ic">&lt;/&gt;</span> Dikembangkan oleh <span class="nm">J D Ace</span> | <code>sigma04</code></div><div class="cp">© 2026 Hak cipta dilindungi.</div></footer>
 </div></section>
 
 <div class="modal" id="mDev"><div class="box ctr">
@@ -184,6 +189,7 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 <main id="app" class="scr tabs"></main>
 <nav class="nav" id="nav"></nav>
 <section id="play" class="scr"></section>
+<footer class="ft"><b class="t">El Math - MAN 1 Boalemo Tahun 2026</b><div class="dv"><span class="ic">&lt;/&gt;</span> Dikembangkan oleh <span class="nm">J D Ace</span> | <code>sigma04</code></div><div class="cp">© 2026 Hak cipta dilindungi.</div></footer>
 <div id="rep"></div>
 
 <script>
@@ -508,7 +514,7 @@ if(v=="profil"){A.innerHTML=hd+`<div class="card ctr">${avatar()}<h2>${esc(S.n)}
 <button class="btn" onclick="rep()">🖨️ Cetak Laporan PDF</button><button class="btn ghost" onclick="pickF()">Ganti Fase</button><button class="btn ghost" onclick="if(confirm('Hapus semua progres?')){localStorage.removeItem('elmath');location.reload()}">Reset</button></div>
 <div class="card"><div class="ar">وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ</div><p class="ctr"><i>QS. Ar-Rahman [55]: 9, terjemah Kemenag RI: “Tegakkanlah timbangan itu dengan adil dan janganlah kamu mengurangi neraca itu.”</i><br>Hikmah: berhitung dengan jujur dan teliti adalah akhlak mulia.</p></div><div class="card"><b>🏆 Peringkat Fase ${S.fase}</b><div id="rk">${GAS_ON()?'<button class="btn ghost" onclick="rank()">Lihat Peringkat</button>':"<small>Database belum terhubung (isi GAS_URL).</small>"}</div></div><div class="card"><b>📲 Aplikasi dan Offline</b><p><small>${navigator.onLine?"📶 Online":"📴 Offline"} · Data menunggu terkirim: ${QUE.length}</small></p>${standalone()?"<small>✅ Sudah terpasang di layar utama</small>":'<button class="btn gold" onclick="pasang()">📲 Pasang Aplikasi</button>'}</div>`}}
 function claim(r){sfx("coin");confetti(10);S.coin+=r;S.claim=today();sv();sync();render("home")}
-function rep(){$("#rep").innerHTML=`<h2>Laporan Belajar El Math</h2><p>Siswa: ${esc(S.n)} · Kelas: ${esc(S.k)} · Fase: ${S.fase}<br>Pengembang: Jefri Is Zakaria, MAN 1 Boalemo (jefri_1986@madrasah.kemenag.go.id)</p><table><tr><th>Pelabuhan</th><th>Topik</th><th>Bintang</th></tr>${lst(S.fase).map(i=>[G[i],i]).map(([g,i])=>`<tr><td>${g[0]}</td><td>${g[2]}</td><td>${S.st[sk(i)]||0}/3</td></tr>`).join("")}</table><p>Level ${lvl()} · XP ${S.xp} · Koin ${S.coin} · Streak ${S.streak} hari · Akurasi ${S.t?Math.round(S.c/S.t*100):100}%</p>`;print()}
+function rep(){$("#rep").innerHTML=`<h2>Laporan Belajar El Math</h2><p>Siswa: ${esc(S.n)} · Kelas: ${esc(S.k)} · Fase: ${S.fase}<br>Pengembang: Jefri Is Zakaria, MAN 1 Boalemo (jefri_1986@madrasah.kemenag.go.id)</p><table><tr><th>Pelabuhan</th><th>Topik</th><th>Bintang</th></tr>${lst(S.fase).map(i=>[G[i],i]).map(([g,i])=>`<tr><td>${g[0]}</td><td>${g[2]}</td><td>${S.st[sk(i)]||0}/3</td></tr>`).join("")}</table><p>Level ${lvl()} · XP ${S.xp} · Koin ${S.coin} · Streak ${S.streak} hari · Akurasi ${S.t?Math.round(S.c/S.t*100):100}%</p><p style="text-align:center;font-size:12px">El Math - MAN 1 Boalemo Tahun 2026 · Dikembangkan oleh J D Ace | sigma04 · © 2026 Hak cipta dilindungi.</p>`;print()}
 function intro(i){const g=G[i];go("play");$("#play").innerHTML=`<div class="card ctr"><div style="font-size:70px">${g[1]}</div><h2>${g[0]}</h2><h3>${g[2]}</h3><p>💡 ${g[3]}</p><p>Tingkat pelabuhan: ${"🔥".repeat(pl(i)+1)} ${["Mudah","Sedang","Menantang"][pl(i)]}</p><button class="btn" onclick="${S.mt&&S.mt[i]?`quiz(${i})`:`materi(${i})`}">${S.mt&&S.mt[i]?"Mulai 5 Soal":"📖 Belajar dulu, lalu kuis"}</button>${S.mt&&S.mt[i]?`<button class="btn ghost" onclick="materi(${i})">📖 Ulangi materi</button>`:`<button class="btn ghost" onclick="quiz(${i})">Lewati materi</button>`}<button class="btn ghost" onclick="render('peta')">Kembali</button></div>`}
 let Q;function quiz(i){Q={i,n:0,ok:0};nq()}
 function mini(j){Q={i:0,n:0,ok:0,gen:GM[j][3],g:j};nq()}
