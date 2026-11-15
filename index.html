@@ -13,9 +13,9 @@
 <style>
 :root{--g:#0F5132;--g2:#198754;--gold:#D4AF37;--bg:#fff7e2;--card:#ffffff;--tx:#1d2b24;--mut:#5b6b63;--bl:#e8f5ee;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0d1f17;--card:#16302a;--tx:#f2f0e4;--mut:#a9c0b4;--bl:#1d3d33;color-scheme:dark}}
-*{box-sizing:border-box}html,body{height:100%;margin:0}
+*{box-sizing:border-box}html{height:100%}body{margin:0;display:flex;flex-direction:column;min-height:100vh}
 body{background:var(--bg);color:var(--tx);font:16px/1.5 "Baloo 2",system-ui,sans-serif;overflow-x:hidden}
-.scr{display:none;min-height:100%;padding:16px;max-width:900px;margin:0 auto}.scr.on{display:block}
+.scr{display:none;padding:16px;max-width:900px;margin:0 auto;width:100%;flex:1 0 auto}.scr.on{display:block}
 h1,h2,h3{margin:.2em 0;font-weight:800}
 .btn{border:0;border-radius:14px;padding:12px 20px;font:800 16px "Baloo 2",sans-serif;background:var(--g);color:#fff;cursor:pointer;margin:4px}
 .btn.gold{background:var(--gold);color:#2b2200}.btn.ghost{background:var(--bl);color:var(--g2)}.btn:disabled{opacity:.5}
@@ -43,7 +43,7 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 .hdr{background:linear-gradient(90deg,var(--g),var(--g2));color:#fff;border-radius:18px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
 .nav{position:fixed;left:0;right:0;bottom:0;background:var(--card);display:none;justify-content:space-around;padding:6px 0 calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -2px 10px #0003;z-index:20}
 .nav.on{display:flex}.nav button{background:none;border:0;font:700 12px "Baloo 2";color:var(--mut);padding:4px 14px}.nav button.a{color:var(--g2)}.nav span{display:block;font-size:22px}
-.tabs{padding-bottom:90px}
+.tabs{padding-bottom:16px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0}.stats div{background:var(--bl);border-radius:14px;text-align:center;padding:8px 2px;font-weight:800}.stats small{display:block;color:var(--mut);font-weight:600}
 .days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:12px;text-align:center}.days div{background:var(--bl);border-radius:10px;padding:6px 0}.days .t{outline:2px solid var(--gold)}.days .d{opacity:.5}
 .isl{display:flex;align-items:center;gap:12px;background:var(--card);border-radius:18px;padding:12px;margin:10px 0;box-shadow:0 2px 8px #0002;cursor:pointer;width:86%}
@@ -131,14 +131,14 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 @keyframes bl{0%,92%,100%{transform:scaleY(1)}96%{transform:scaleY(.1)}}@keyframes kj{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-12px) rotate(-6deg)}}
 @keyframes tr{0%{transform:translateY(0);opacity:1}100%{transform:translateY(14px);opacity:0}}@keyframes sp{to{transform:scale(1.5) rotate(20deg)}}
 .vz .rope{height:30px;border-radius:15px;background:repeating-linear-gradient(115deg,#b8860b 0 6px,#8a6a1d 6px 12px);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;margin:6px 0;transform-origin:left;animation:zg 1s both;text-shadow:0 1px 2px #0008}.vz .rope.r2{background:repeating-linear-gradient(115deg,#7a5230 0 6px,#a87b4f 6px 12px)}.vz .rrow{display:flex;align-items:center;margin:6px 0}.vz .rrow .rope{margin:0}.vz .knot{font-size:28px;margin:0 -8px;z-index:1;animation:zp .5s 1s both}
-.ft{background:#0a3324;color:#d7e6dd;text-align:center;font:600 13px/1.6 "Baloo 2",sans-serif;padding:16px 12px 92px;margin-top:18px;border-radius:20px 20px 0 0}
-.ft .t{display:block;font-size:14px;font-weight:800;color:#fff}.ft .dv{margin:3px 0}.ft .ic{color:#D4AF37;font:800 13px ui-monospace,Menlo,Consolas,monospace;margin-right:2px}.ft .nm{color:#fff;font-weight:800}
-.ft code{background:#06241a;color:#4ade80;border-radius:6px;padding:1px 8px;font:700 13px ui-monospace,Menlo,Consolas,monospace}.ft .cp{color:#9db3a7;font-size:12px}
-.ft.cov{background:transparent;padding:14px 0 6px;margin-top:10px;border-radius:0}
+.ft{background:#0a3324;color:#d7e6dd;text-align:center;font:600 14px/1.7 "Baloo 2",sans-serif;padding:20px 12px 92px;margin-top:18px;border-radius:22px 22px 0 0;width:100%;flex:none}
+.ft .t{display:block;font-size:16px;font-weight:800;color:#fff}.ft .dv{margin:4px 0}.ft .ic{color:#D4AF37;font:800 14px ui-monospace,Menlo,Consolas,monospace;margin-right:4px}.ft .nm{color:#fff;font-weight:800}.ft .sep{margin:0 9px;color:#6f9482}
+.ft code{background:#06241a;color:#4ade80;border-radius:6px;padding:1px 9px;font:700 14px ui-monospace,Menlo,Consolas,monospace}.ft .cp{color:#9db3a7;font-size:13px}
+body[data-s=splash] .ft{display:none}body[data-s=cover] .ft{margin-top:0;border-radius:0;background:#0a3322}body:not([data-s=app]) .ft{padding-bottom:22px}
 #rep{display:none}
 @media print{body>*:not(#rep){display:none!important}#rep{display:block;padding:20px;color:#000;background:#fff}#rep table{width:100%;border-collapse:collapse}#rep td,#rep th{border:1px solid #000;padding:6px}}
 @media(min-width:700px){.opts{grid-template-columns:repeat(4,1fr)}}
-</style></head><body>
+</style></head><body data-s="splash">
 
 <section id="splash" class="scr on"><div class="big">🧮</div><h1>El Math</h1><p>Belajar Matematika dengan Gembira…</p></section>
 
@@ -157,7 +157,6 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 <button class="btn ghost" onclick="op('mDev')">Informasi Pengembang</button>
 <button class="btn ghost" onclick="op('mTuj')">Tujuan Pembelajaran</button><br>
 <button class="btn gold" style="font-size:22px;padding:14px 50px" onclick="go('form')">MULAI</button>
-<footer class="ft cov"><b class="t">El Math - MAN 1 Boalemo Tahun 2026</b><div class="dv"><span class="ic">&lt;/&gt;</span> Dikembangkan oleh <span class="nm">J D Ace</span> | <code>sigma04</code></div><div class="cp">© 2026 Hak cipta dilindungi.</div></footer>
 </div></section>
 
 <div class="modal" id="mDev"><div class="box ctr">
@@ -189,7 +188,7 @@ input{width:100%;padding:12px;border-radius:12px;border:2px solid var(--g2);font
 <main id="app" class="scr tabs"></main>
 <nav class="nav" id="nav"></nav>
 <section id="play" class="scr"></section>
-<footer class="ft"><b class="t">El Math - MAN 1 Boalemo Tahun 2026</b><div class="dv"><span class="ic">&lt;/&gt;</span> Dikembangkan oleh <span class="nm">J D Ace</span> | <code>sigma04</code></div><div class="cp">© 2026 Hak cipta dilindungi.</div></footer>
+<footer class="ft"><b class="t">El Math - MAN 1 Boalemo Tahun 2026</b><div class="dv"><span class="ic">&lt;/&gt;</span> Dikembangkan oleh <span class="nm">J D Ace</span><span class="sep">|</span><code>sigma04</code></div><div class="cp">© 2026 Hak cipta dilindungi.</div></footer>
 <div id="rep"></div>
 
 <script>
@@ -218,7 +217,7 @@ const $=s=>document.querySelector(s),R=(a,b)=>Math.floor(Math.random()*(b-a+1))+
 let S;try{S=JSON.parse(localStorage.getItem("elmath"))}catch(e){}
 S=S||{n:"",k:"",coin:0,xp:0,streak:0,last:"",claim:"",st:{},c:0,t:0};S.own=S.own||[];S.eq=S.eq||{};S.bs=S.bs||{};S.mt=S.mt||{};
 const sv=()=>{try{if(S.n)mchk()}catch(e){}try{localStorage.setItem("elmath",JSON.stringify(S))}catch(e){}};
-const go=id=>{clr();document.querySelectorAll(".scr").forEach(x=>x.classList.toggle("on",x.id===id));$("#nav").classList.toggle("on",id==="app");scrollTo(0,0)};
+const go=id=>{clr();document.body.dataset.s=id;document.querySelectorAll(".scr").forEach(x=>x.classList.toggle("on",x.id===id));$("#nav").classList.toggle("on",id==="app");scrollTo(0,0)};
 const op=id=>$("#"+id).classList.add("on"),cl=id=>$("#"+id).classList.remove("on");
 const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="id-ID";speechSynthesis.speak(u)}catch(e){}};
 const num=(a,s,st)=>{const o=new Set([a]);let g=0;while(o.size<4&&g++<80){const v=a+R(-4,4)*st;if(v>=0)o.add(v)}return{s,a,o:sh([...o])}};
