@@ -1,5 +1,5 @@
 /* EL MATH – Service Worker (mode offline). Ubah V setiap kali Anda merilis versi baru. */
-const V = "elmath-v5";
+const V = "elmath-v6";
 const CORE = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "icon-maskable-512.png"];
 
 self.addEventListener("install", e => {
